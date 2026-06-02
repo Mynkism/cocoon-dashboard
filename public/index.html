@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cocoon Dashboard</title>
 
-  <!-- Google Fonts: Space Mono for numbers, DM Sans for UI text -->
+  <!-- Google Fonts: Inter for UI text, JetBrains Mono for numbers -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
   <!-- Chart.js via CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <!-- GSAP for card bento effects and gooey nav animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -19,16 +22,18 @@
 
   <!-- ── Header ─────────────────────────────────────────────────────────── -->
   <header class="site-header">
-    <div class="header-brand">
-      <img src="/logo.png" alt="Cocoon Dashboard" class="header-logo"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
-      <span class="header-brand-text" style="display:none">Cocoon <span class="brand-accent">Dashboard</span></span>
+    <div class="header-inner">
+      <div class="header-brand">
+        <img src="/logo.png" alt="Cocoon Dashboard" class="header-logo"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+        <span class="header-brand-text" style="display:none">Cocoon <span class="brand-accent">Dashboard</span></span>
+      </div>
+      <nav class="tab-nav" role="tablist">
+        <button class="tab-btn active" data-tab="daywise"    role="tab" aria-selected="true">Day-Wise</button>
+        <button class="tab-btn"        data-tab="analysis"   role="tab" aria-selected="false">Analysis</button>
+        <button class="tab-btn"        data-tab="ads"        role="tab" aria-selected="false">Ads Breakdown</button>
+      </nav>
     </div>
-    <nav class="tab-nav" role="tablist">
-      <button class="tab-btn active" data-tab="daywise"    role="tab" aria-selected="true">Day-Wise</button>
-      <button class="tab-btn"        data-tab="analysis"   role="tab" aria-selected="false">Analysis</button>
-      <button class="tab-btn"        data-tab="ads"        role="tab" aria-selected="false">Ads Breakdown</button>
-    </nav>
   </header>
 
   <!-- ── Warning banners (populated by app.js) ──────────────────────────── -->
@@ -47,6 +52,9 @@
         <label for="month-selector" class="month-label">Month</label>
         <select id="month-selector" class="month-select"></select>
       </div>
+
+      <!-- Target cards — only shown when targets exist for the selected month -->
+      <div id="target-cards" class="cards-grid-target hidden"></div>
 
       <!-- Row 1: 4 primary metric cards -->
       <div id="primary-cards" class="cards-grid-primary"></div>
@@ -145,6 +153,19 @@
           <button class="apply-range-btn" id="meta-apply">Apply</button>
         </div>
         <div id="meta-cards" class="cards-grid-tab3"></div>
+        <div class="section-header-bar">
+          <span class="section-header-label">Campaign Breakdown</span>
+          <span class="section-header-range" id="meta-range-display"></span>
+        </div>
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="meta-campaign-table" class="data-table">
+              <thead id="meta-campaign-table-head"></thead>
+              <tbody id="meta-campaign-table-body"></tbody>
+              <tfoot id="meta-campaign-table-foot"></tfoot>
+            </table>
+          </div>
+        </div>
       </div>
 
     </section>
@@ -169,7 +190,7 @@
     <span id="footer-cutoff" class="footer-cutoff"></span>
   </footer>
 
-  <script src="charts.js"></script>
-  <script src="app.js"></script>
+  <script src="charts.js?v=3"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

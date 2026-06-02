@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { parse } = require('csv-parse/sync');
+const xlsx = require('xlsx');
 
 const app = express();
 const PORT = 3000;
@@ -15,10 +16,13 @@ let shopifyVisitorsData = new Map();
 let googleDailyData = new Map();       // aggregated by day
 let googleCampaignRows = [];           // raw campaign-level rows (before day-aggregation)
 let metaAdsData = new Map();
+let metaCampaignRows = [];           // raw campaign-level rows for Meta breakdown
 
 let DATA_CUTOFF_DATE = null;   // YYYY-MM-DD: min of each file's latest date
 let DATA_START_DATE = null;    // YYYY-MM-DD: earliest date across all files
 const fileWarnings = [];       // filenames that are missing or failed to parse
+
+let targetsData = new Map();
 
 // ─── CSV parsing helpers ─────────────────────────────────────────────────────
 
@@ -115,14 +119,16 @@ function parseShopifyVisitors(filePath) {
   return { data: dayMap, rowCount: records.length };
 }
 
-// Parse google_ads.csv — skip first 2 rows (report name + date range), headers on row 3
+// Parse google_ads.csv — detect whether file has Google report header rows
 function parseGoogleAds(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
+  const firstLine = content.split('\n')[0] || '';
+  const fromLine = firstLine.trim().startsWith('Campaign type') ? 1 : 3;
   const records = parse(content, {
     columns: true,
     skip_empty_lines: true,
     trim: true,
-    from_line: 3,
+    from_line: fromLine,
     relax_column_count: true,
   });
 
@@ -190,10 +196,13 @@ function parseMetaAds(filePath) {
   }
 
   const dayMap = new Map();
+  const campaignRows = [];
+
   for (const row of records) {
     const day = (row['Day'] || '').trim();
     if (!isValidDate(day)) continue;
 
+    const campaign       = (row['Campaign name'] || '').trim();
     // Purchases and Purchases conversion value have many null rows — treat as 0
     const spend          = safeNum(row['Amount spent (AUD)']);
     const impressions    = safeInt(row['Impressions']);
@@ -202,7 +211,11 @@ function parseMetaAds(filePath) {
     const purchases      = safeNum(row['Purchases']);           // nulls → 0
     const purchasesValue = safeNum(row['Purchases conversion value']); // nulls → 0
 
+    // Store campaign-level row for Tab 3 breakdown table
+    campaignRows.push({ day, campaign, spend, impressions, reach, clicks, purchases, purchasesValue });
+
     if (dayMap.has(day)) {
+
       const e = dayMap.get(day);
       e.spend          += spend;
       e.impressions    += impressions;
@@ -215,7 +228,29 @@ function parseMetaAds(filePath) {
     }
   }
 
-  return { data: dayMap, rowCount: records.length };
+  return { data: dayMap, campaignRows, rowCount: records.length };
+}
+
+// ─── Targets loading ─────────────────────────────────────────────────────────
+
+function parseTargets(filePath) {
+  if (!fs.existsSync(filePath)) { console.warn('[MISSING] targets.xlsx'); return; }
+  try {
+    const workbook = xlsx.readFile(filePath);
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = xlsx.utils.sheet_to_json(sheet);
+    targetsData = new Map();
+    for (const row of rows) {
+      const month = String(row['Month'] || '').trim();
+      if (!/^\d{4}-\d{2}$/.test(month)) continue;
+      targetsData.set(month, {
+        targetSales: safeNum(row['Target Sales (AUD)']),
+        targetRoi:   safeNum(row['Target ROI (x)']),
+        targetSpend: safeNum(row['Target Spend (AUD)']),
+      });
+    }
+    console.log(`[OK] targets.xlsx: ${targetsData.size} months loaded`);
+  } catch (err) { console.error(`[ERROR] targets.xlsx: ${err.message}`); }
 }
 
 // ─── Data loading on startup ─────────────────────────────────────────────────
@@ -253,7 +288,8 @@ function loadData() {
       filename: 'meta_ads.csv',
       parser: parseMetaAds,
       onLoad: (result) => {
-        metaAdsData = result.data;
+        metaAdsData       = result.data;
+        metaCampaignRows  = result.campaignRows;
         return result.rowCount;
       },
     },
@@ -299,6 +335,8 @@ function loadData() {
 
   console.log(`\nDATA_START_DATE:  ${DATA_START_DATE}`);
   console.log(`DATA_CUTOFF_DATE: ${DATA_CUTOFF_DATE}\n`);
+
+  parseTargets(path.join(dataDir, 'targets.xlsx'));
 }
 
 // ─── Metric computation helpers ──────────────────────────────────────────────
@@ -693,13 +731,15 @@ app.get('/api/analysis/mom', (req, res) => {
   }
 
   pairs.reverse(); // most recent pair first
-  res.json(pairs);
+  const nowMom = new Date();
+  const currentCalMonth = `${nowMom.getFullYear()}-${String(nowMom.getMonth() + 1).padStart(2, '0')}`;
+  res.json(pairs.filter(p => p.currentMonth !== currentCalMonth));
 });
 
 // Week-on-week pairs, sorted descending; limit defaults to 12
 app.get('/api/analysis/wow', (req, res) => {
   const { limit } = req.query;
-  const allWeeks = buildWeeks(); // already descending
+  const allWeeks = buildWeeks().filter(w => !w.isPartial); // complete Mon–Sun weeks only
   const pairs    = [];
 
   for (let i = 0; i < allWeeks.length; i++) {
@@ -845,14 +885,15 @@ app.get('/api/google', (req, res) => {
   res.json({ daily, campaigns, totals, priorTotals, start, end: effectiveEnd });
 });
 
-// Meta Ads data for Tab 3: daily totals
+// Meta Ads data for Tab 3: daily totals + campaign breakdown (RB campaigns only)
 app.get('/api/meta-ads', (req, res) => {
   const { start, end } = req.query;
   if (!start || !end || !isValidDate(start) || !isValidDate(end)) {
     return res.status(400).json({ error: 'Invalid start or end date.' });
   }
   const effectiveEnd = DATA_CUTOFF_DATE && end > DATA_CUTOFF_DATE ? DATA_CUTOFF_DATE : end;
-  const dates = getDatesInRange(start, effectiveEnd);
+  const dates   = getDatesInRange(start, effectiveEnd);
+  const dateSet = new Set(dates);
 
   // Daily series for sparklines
   const daily = [];
@@ -875,6 +916,32 @@ app.get('/api/meta-ads', (req, res) => {
     }
   }
 
+  // Campaign breakdown — only campaigns whose name starts with "RB"
+  const campaignMap = new Map();
+  for (const row of metaCampaignRows) {
+    if (!dateSet.has(row.day)) continue;
+    if (!row.campaign.startsWith('RB')) continue;
+    if (!campaignMap.has(row.campaign)) {
+      campaignMap.set(row.campaign, {
+        campaign: row.campaign,
+        spend: 0, impressions: 0, reach: 0, clicks: 0, purchases: 0, purchasesValue: 0,
+      });
+    }
+    const e = campaignMap.get(row.campaign);
+    e.spend          += row.spend;
+    e.impressions    += row.impressions;
+    e.reach          += row.reach;
+    e.clicks         += row.clicks;
+    e.purchases      += row.purchases;
+    e.purchasesValue += row.purchasesValue;
+  }
+  const campaigns = [...campaignMap.values()].map(c => ({
+    ...c,
+    ctr:  sanitize(c.impressions > 0 ? c.clicks / c.impressions : null),
+    cpc:  sanitize(c.clicks > 0      ? c.spend / c.clicks : null),
+    roas: sanitize(c.spend > 0       ? c.purchasesValue / c.spend : null),
+  }));
+
   const totals = sanitizeMetrics(aggregateMetaForRange(dates));
 
   // Prior equivalent range for trend arrows
@@ -884,7 +951,7 @@ app.get('/api/meta-ads', (req, res) => {
     priorTotals = sanitizeMetrics(aggregateMetaForRange(getDatesInRange(pr.start, pr.end)));
   }
 
-  res.json({ daily, totals, priorTotals, start, end: effectiveEnd });
+  res.json({ daily, campaigns, totals, priorTotals, start, end: effectiveEnd });
 });
 
 // Min/max selectable dates for the Google Tab 3 date picker
@@ -899,9 +966,28 @@ app.get('/api/meta-ads/dates', (req, res) => {
   res.json({ min: dates[0] || null, max: dates[dates.length - 1] || null });
 });
 
+// Targets for the selected month
+app.get('/api/targets', (req, res) => {
+  const { month } = req.query;
+  if (!month || !/^\d{4}-\d{2}$/.test(month)) return res.status(400).json({ error: 'Invalid month.' });
+  const t = targetsData.get(month) || null;
+  if (t && t.targetSales === 0 && t.targetRoi === 0 && t.targetSpend === 0) return res.json(null);
+  res.json(t);
+});
+
 // ─── Start ───────────────────────────────────────────────────────────────────
 
 loadData();
+
+const dataDir = path.join(__dirname, 'data');
+fs.watch(dataDir, (eventType, filename) => {
+  if (filename === 'targets.xlsx') {
+    setTimeout(() => {
+      console.log('[RELOAD] targets.xlsx updated, reloading targets...');
+      parseTargets(path.join(dataDir, 'targets.xlsx'));
+    }, 300);
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Cocoon Dashboard → http://localhost:${PORT}`);

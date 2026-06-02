@@ -41,6 +41,28 @@ The dashboard reads everything fresh on each server start. No database. No cache
 
 ---
 
+## Updating Data
+
+Use this workflow when you have incremental exports (last 7–10 days) and want to merge them into the existing history rather than replacing everything.
+
+1. Export fresh CSVs from each platform (last 7–10 days of data is enough — the script handles overlaps automatically).
+2. Save them into the `/updates` folder using the **exact same filenames** as the `/data` folder:
+   - `shopify_sales.csv`
+   - `shopify_visitors.csv`
+   - `google_ads.csv`
+   - `meta_ads.csv`
+3. Run the update script from the project root:
+   ```
+   node update.js
+   ```
+4. The script merges the new data into `/data` automatically — overlapping dates are replaced, new dates are appended, and the files are re-sorted chronologically.
+5. Restart the server so the dashboard picks up the new data:
+   - Stop the current server with `Ctrl+C`
+   - Run `node server.js` again
+6. The `/updates` folder can be cleared after each successful update — the files there are only needed during the merge.
+
+---
+
 ## DATA_CUTOFF_DATE logic
 
 On startup, the server reads the latest date from each of the four CSV files. It then takes the **minimum** of those four dates. That becomes the `DATA_CUTOFF_DATE`.
