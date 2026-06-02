@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const fs = require('fs');
 const { parse } = require('csv-parse/sync');
@@ -8,6 +9,7 @@ const xlsx = require('xlsx');
 
 const app = express();
 const PORT = 3000;
+const PASSWORD = 'CrazyGood!';
 
 // ─── In-memory data stores ───────────────────────────────────────────────────
 // Key: YYYY-MM-DD string. Value: aggregated day metrics.
@@ -552,9 +554,187 @@ function priorRangeFor(start, end) {
   };
 }
 
-// ─── API Routes ──────────────────────────────────────────────────────────────
+// ─── Middleware ──────────────────────────────────────────────────────────────
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use(session({
+  secret: 'cocoon-dashboard-secret-2024',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 24 * 60 * 60 * 1000 },
+}));
+
+// Auth guard — runs before static files and all API routes
+app.use((req, res, next) => {
+  if (req.path === '/login' || req.path === '/logout') return next();
+  if (req.session && req.session.isAuthenticated) return next();
+  return res.redirect('/login');
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+// ─── Auth Routes ─────────────────────────────────────────────────────────────
+
+app.get('/login', (req, res) => {
+  const error = req.query.error ? '<p class="login-error">Incorrect password. Try again.</p>' : '';
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cocoon Dashboard — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary:      #000000;
+      --bg-secondary:    #0a0a0a;
+      --border-subtle:   #1f1f1f;
+      --border-accent:   #2a2a2a;
+      --text-primary:    #f0f0f0;
+      --text-secondary:  #888888;
+      --text-muted:      #444444;
+      --accent-positive: #00d4aa;
+      --accent-negative: #f59e0b;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-primary);
+      background-image:
+        linear-gradient(rgba(0, 212, 170, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 170, 0.025) 1px, transparent 1px);
+      background-size: 44px 44px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.025) 2px,
+        rgba(0, 0, 0, 0.025) 3px
+      );
+    }
+    .login-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .login-logo {
+      height: 32px;
+      width: auto;
+    }
+    .login-logo-fallback {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.04em;
+    }
+    .login-logo-fallback span { color: var(--accent-positive); }
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    input[type="password"] {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      background: #111111;
+      border: 1px solid var(--border-accent);
+      border-radius: 4px;
+      color: var(--text-primary);
+      padding: 10px 12px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input[type="password"]:focus {
+      border-color: var(--accent-positive);
+    }
+    button[type="submit"] {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      background: var(--accent-positive);
+      color: #000000;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 16px;
+      width: 100%;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      margin-top: 4px;
+    }
+    button[type="submit"]:hover { opacity: 0.85; }
+    .login-error {
+      font-size: 12px;
+      color: var(--accent-negative);
+      text-align: center;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <img src="/logo.png" alt="Cocoon Dashboard" class="login-logo"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <div class="login-logo-fallback" style="display:none">Cocoon <span>Dashboard</span></div>
+    <form method="POST" action="/login">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" autofocus />
+      <button type="submit">Enter Dashboard</button>
+    </form>
+    ${error}
+  </div>
+</body>
+</html>`);
+});
+
+app.post('/login', (req, res) => {
+  if (req.body.password === PASSWORD) {
+    req.session.isAuthenticated = true;
+    return res.redirect('/');
+  }
+  return res.redirect('/login?error=1');
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => res.redirect('/login'));
+});
+
+// ─── API Routes ──────────────────────────────────────────────────────────────
 
 // Config: dates, available months, warnings
 app.get('/api/config', (req, res) => {
