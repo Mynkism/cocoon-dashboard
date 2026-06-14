@@ -1530,7 +1530,7 @@ Search,RB_Non-Brand_Search_020925,2026-06-03,AUD,35.04,8,125,6.40%,4.38,0.00,0.0
 Performance Max,RB_Pmax_Feed_Only_Victoria_NSW_ACT_120925,2026-06-03,AUD,25.45,11,278,3.96%,2.31,0.00,0.00%,0.00,0
 Performance Max,RB_Pmax_With_Feed_250925,2026-06-03,AUD,58.34,51,"4,705",1.08%,1.14,0.00,0.00%,0.00,0
 Shopping,RB_Std_Shp_Vistoria_NSW_ACT_011025,2026-06-03,AUD,123.55,79,"4,689",1.68%,1.56,1.00,1.27%,999.00,123.55
-Shopping,RB_Std_Shp_OtherLocation_100126,2026-06-03,AUD,140.22,71,"5,901",1.20%,1.97,0.00,0.00%,0.00,0
+Shopping,RB_Std_Shp_OtherLocation_100126,2026-06-03,AUD,140.22,71,"5,901",1.20%,1.97,1.00,1.41%,"1,999.00",140.22
 Performance Max,RB_Pmax_Feed_Only_Other Locations_290126,2026-06-03,AUD,27.13,28,"2,197",1.27%,0.97,0.00,0.00%,0.00,0
 Demand Gen,RB_DemGen_110226,2026-06-03,AUD,21.91,2,753,0.27%,10.95,0.00,0.00%,0.00,0
 Performance Max,RB_Pmax_Bundles & Bassinet_20/05/26,2026-06-03,AUD,8.65,6,48,12.50%,1.44,0.00,0.00%,0.00,0
@@ -1558,9 +1558,9 @@ Performance Max,RB_PMax_EOFY Sale_030626,2026-06-05,AUD,1.36,3,47,6.38%,0.45,0.0
 Search,RB_Brand_Search_020925,2026-06-06,AUD,23.55,24,79,30.38%,0.98,1.00,4.17%,846.96,23.55
 Search,RB_Non-Brand_Search_020925,2026-06-06,AUD,31.82,4,54,7.41%,7.96,0.00,0.00%,0.00,0
 Performance Max,RB_Pmax_Feed_Only_Victoria_NSW_ACT_120925,2026-06-06,AUD,29.43,15,"1,379",1.09%,1.96,0.00,0.00%,0.00,0
-Performance Max,RB_Pmax_With_Feed_250925,2026-06-06,AUD,73.65,65,"6,247",1.04%,1.13,0.00,0.00%,0.00,0
+Performance Max,RB_Pmax_With_Feed_250925,2026-06-06,AUD,73.65,65,"6,247",1.04%,1.13,1.00,1.47%,902.95,73.65
 Shopping,RB_Std_Shp_Vistoria_NSW_ACT_011025,2026-06-06,AUD,141.49,97,"7,560",1.28%,1.46,0.34,0.35%,274.24,412.23
-Shopping,RB_Std_Shp_OtherLocation_100126,2026-06-06,AUD,130.86,59,"6,513",0.91%,2.22,0.00,0.00%,0.00,0
+Shopping,RB_Std_Shp_OtherLocation_100126,2026-06-06,AUD,130.86,59,"6,513",0.91%,2.22,1.00,1.69%,699.00,130.86
 Performance Max,RB_Pmax_Feed_Only_Other Locations_290126,2026-06-06,AUD,48.26,34,"3,255",1.04%,1.42,0.00,0.00%,0.00,0
 Demand Gen,RB_DemGen_110226,2026-06-06,AUD,21.87,1,862,0.12%,21.87,0.00,0.00%,0.00,0
 Performance Max,RB_Pmax_Bundles & Bassinet_20/05/26,2026-06-06,AUD,37.81,16,205,7.80%,2.36,0.00,0.00%,0.00,0
@@ -1628,10 +1628,24 @@ Performance Max,RB_PMax_EOFY Sale_030626,2026-06-12,AUD,6.55,2,29,6.90%,3.27,0.0
 Search,RB_Brand_Search_020925,2026-06-13,AUD,36.49,14,46,30.43%,2.61,0.00,0.00%,0.00,0
 Search,RB_Non-Brand_Search_020925,2026-06-13,AUD,23.08,4,32,12.50%,5.77,0.00,0.00%,0.00,0
 Performance Max,RB_Pmax_Feed_Only_Victoria_NSW_ACT_120925,2026-06-13,AUD,9.08,9,499,1.80%,1.01,0.00,0.00%,0.00,0
-Performance Max,RB_Pmax_With_Feed_250925,2026-06-13,AUD,48.55,41,"3,397",1.21%,1.18,1.33,3.25%,744.98,36.41
+Performance Max,RB_Pmax_With_Feed_250925,2026-06-13,AUD,48.55,41,"3,399",1.21%,1.18,1.33,3.25%,744.98,36.41
 Shopping,RB_Std_Shp_Vistoria_NSW_ACT_011025,2026-06-13,AUD,140.75,141,"10,852",1.30%,1.00,0.96,0.68%,86.48,146.39
 Shopping,RB_Std_Shp_OtherLocation_100126,2026-06-13,AUD,127.93,70,"6,538",1.07%,1.83,0.00,0.00%,0.00,0
 Performance Max,RB_Pmax_Feed_Only_Other Locations_290126,2026-06-13,AUD,68.33,30,"2,640",1.14%,2.28,0.00,0.00%,0.00,0
 Demand Gen,RB_DemGen_110226,2026-06-13,AUD,20.88,7,"1,244",0.56%,2.98,0.00,0.00%,0.00,0
 Performance Max,RB_Pmax_Bundles & Bassinet_20/05/26,2026-06-13,AUD,70.85,24,345,6.96%,2.95,1.67,1.39%,"1,042.87",42.51
-Performance Max,RB_PMax_EOFY Sale_030626,2026-06-13,AUD,35.76,15,236,6.36%,2.38,0.00,0.00%,0.00,0
+Performance Max,RB_PMax_EOFY Sale_030626,2026-06-13,AUD,35.77,15,239,6.28%,2.38,0.00,0.00%,0.00,0
+Search,RB_Brand_Search_020925,2026-06-14,AUD,39.07,20,120,16.67%,1.95,0.00,0.00%,0.00,0
+Search,RB_Non-Brand_Search_020925,2026-06-14,AUD,20.79,3,31,9.68%,6.93,0.00,0.00%,0.00,0
+Performance Max,RB_Pmax_Feed_Only_Victoria_NSW_ACT_120925,2026-06-14,AUD,32.84,17,"1,432",1.19%,1.93,0.00,0.00%,0.00,0
+Performance Max,RB_Pmax_With_Feed_250925,2026-06-14,AUD,44.34,59,"4,952",1.19%,0.75,2.00,3.33%,"1,831.88",22.17
+Shopping,RB_Std_Shp_Vistoria_NSW_ACT_011025,2026-06-14,AUD,153.00,115,"9,354",1.23%,1.33,2.00,1.74%,854.99,76.50
+Shopping,RB_Std_Shp_OtherLocation_100126,2026-06-14,AUD,128.42,84,"9,365",0.90%,1.53,0.00,0.00%,0.00,0
+Performance Max,RB_Pmax_Feed_Only_Other Locations_290126,2026-06-14,AUD,40.21,25,"2,576",0.97%,1.61,1.00,3.45%,333.98,40.21
+Demand Gen,RB_DemGen_110226,2026-06-14,AUD,20.44,7,"1,480",0.47%,2.92,0.00,0.00%,0.00,0
+Performance Max,RB_Pmax_Bundles & Bassinet_20/05/26,2026-06-14,AUD,3.40,3,40,7.50%,1.13,0.00,0.00%,0.00,0
+Performance Max,RB_PMax_EOFY Sale_030626,2026-06-14,AUD,21.05,12,159,7.55%,1.75,0.00,0.00%,0.00,0
+Search,RB_Brand_Search_020925,2026-06-15,AUD,1.38,2,5,40.00%,0.69,0.00,0.00%,0.00,0
+Demand Gen,RB_DemGen_110226,2026-06-15,AUD,1.12,0,75,0.00%,0,0.00,0.00%,0.00,0
+Performance Max,RB_Pmax_Bundles & Bassinet_20/05/26,2026-06-15,AUD,0.21,0,26,0.00%,0,0.00,0.00%,0.00,0
+Performance Max,RB_PMax_EOFY Sale_030626,2026-06-15,AUD,0.00,0,1,0.00%,0,0.00,0,0.00,0
