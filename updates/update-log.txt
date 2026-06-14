@@ -1,0 +1,672 @@
+
+===== UPDATE RUN: 18/04/2026, 10:43:51 =====
+  shopify_sales.csv not found in /updates, skipping.
+  shopify_visitors.csv not found in /updates, skipping.
+  google_ads.csv not found in /updates, skipping.
+  meta_ads.csv not found in /updates, skipping.
+Data current to: unknown
+
+
+===== UPDATE RUN: 18/04/2026, 10:48:54 =====
+  shopify_sales.csv not found in /updates, skipping.
+  shopify_visitors.csv not found in /updates, skipping.
+  google_ads.csv not found in /updates, skipping.
+  meta_ads.csv not found in /updates, skipping.
+Data current to: unknown
+
+
+===== UPDATE RUN: 18/04/2026, 10:56:27 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 106 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 15 | added 18 | total 261
+google_ads.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 0 | added 108 | total 1126
+  ERROR reading meta_ads.csv from /data: Invalid Opening Quote: a quote is found on field 0 at line 1, value is "﻿" (utf8 bom). Skipping.
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 18/04/2026, 10:58:33 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+google_ads.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 0 | added 108 | total 1124
+  ERROR reading meta_ads.csv from /data: Invalid Opening Quote: a quote is found on field 0 at line 1, value is "﻿" (utf8 bom). Skipping.
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 18/04/2026, 11:03:03 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+  UNEXPECTED ERROR processing google_ads.csv: EBUSY: resource busy or locked, open 'C:\Users\mayus\meta-ads\cocoon-dashboard\data\google_ads.csv'. Skipping.
+  ERROR reading meta_ads.csv from /data: Invalid Opening Quote: a quote is found on field 0 at line 1, value is "﻿" (utf8 bom). Skipping.
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 18/04/2026, 11:04:54 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+google_ads.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 0 | added 108 | total 928
+  ERROR reading meta_ads.csv from /data: Invalid Opening Quote: a quote is found on field 0 at line 1, value is "﻿" (utf8 bom). Skipping.
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 18/04/2026, 11:07:56 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+google_ads.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 0 | added 108 | total 928
+  ERROR reading meta_ads.csv from /data: Invalid Opening Quote: a quote is found on field 0 at line 1, value is "﻿" (utf8 bom). Skipping.
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 18/04/2026, 11:15:10 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+  ERROR: Column mismatch in shopify_visitors.csv. /data cols: [Day, Online store visitors, Sessions, Day (previous_period), Online store visitors (previous_period), Sessions (previous_period)] | /updates cols: [Day, Online store visitors, Sessions]. Aborting — nothing written.
+  ERROR: Column mismatch in google_ads.csv. /data cols: [RB - Campaign performance] | /updates cols: [Campaign type, Campaign, Day, Currency code, Cost, Clicks, Impr., CTR, Avg. CPC, Conversions, Conv. rate, Conv. value, Cost / conv.]. Aborting — nothing written.
+  ERROR reading meta_ads.csv from /data: Invalid Opening Quote: a quote is found on field 0 at line 1, value is "﻿" (utf8 bom). Skipping.
+Data current to: 2026-04-17
+
+
+===== UPDATE RUN: 18/04/2026, 11:18:38 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+google_ads.csv: 229 dates (2025-09-02 to 2026-04-18) | removed 818 | added 818 | total 818
+  ERROR: Column mismatch in meta_ads.csv. /data cols: [Campaign name, Ad set name, Ad name, Day, Delivery status, Delivery level, Result type, Results, Cost per result, Amount spent (AUD), Impressions, Reach, Attribution setting, Quality ranking, Engagement rate ranking, Conversion rate ranking, Purchases, Purchases conversion value, Link clicks, Reporting starts, Reporting ends] | /updates cols: [Day, Campaign name, Reach, Frequency, Impressions, Views, Currency, Amount spent (AUD), Clicks (all), Link clicks, Purchases, Cost per purchase, Purchases conversion value, Reporting starts, Reporting ends]. Aborting — nothing written.
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 20/04/2026, 22:47:04 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+google_ads.csv: 229 dates (2025-09-02 to 2026-04-18) | removed 818 | added 818 | total 818
+  ERROR: Column mismatch in meta_ads.csv. /data cols: [Campaign name, Ad set name, Ad name, Day, Delivery status, Delivery level, Result type, Results, Cost per result, Amount spent (AUD), Impressions, Reach, Attribution setting, Quality ranking, Engagement rate ranking, Conversion rate ranking, Purchases, Purchases conversion value, Link clicks, Reporting starts, Reporting ends] | /updates cols: [Day, Campaign name, Reach, Frequency, Impressions, Views, Currency, Amount spent (AUD), Clicks (all), Link clicks, Purchases, Cost per purchase, Purchases conversion value, Reporting starts, Reporting ends]. Aborting — nothing written.
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 20/04/2026, 23:06:17 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+google_ads.csv: 229 dates (2025-09-02 to 2026-04-18) | removed 818 | added 818 | total 818
+meta_ads.csv: 17 dates (2026-04-01 to 2026-04-17) | removed 34 | added 34 | total 573
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 20/04/2026, 23:08:12 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+google_ads.csv: 229 dates (2025-09-02 to 2026-04-18) | removed 818 | added 818 | total 818
+meta_ads.csv: 17 dates (2026-04-01 to 2026-04-17) | removed 34 | added 34 | total 573
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 20/04/2026, 23:12:04 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+google_ads.csv: 229 dates (2025-09-02 to 2026-04-18) | removed 818 | added 818 | total 818
+meta_ads.csv: 17 dates (2026-04-01 to 2026-04-17) | removed 34 | added 34 | total 573
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 21/04/2026, 11:55:55 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+google_ads.csv: 229 dates (2025-09-02 to 2026-04-18) | removed 818 | added 818 | total 818
+meta_ads.csv: 17 dates (2026-04-01 to 2026-04-17) | removed 34 | added 34 | total 573
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 21/04/2026, 11:56:03 =====
+shopify_sales.csv: 16 dates (2026-04-01 to 2026-04-17) | removed 118 | added 118 | total 937
+shopify_visitors.csv: 18 dates (2026-04-01 to 2026-04-18) | removed 18 | added 18 | total 261
+google_ads.csv: 229 dates (2025-09-02 to 2026-04-18) | removed 818 | added 818 | total 818
+meta_ads.csv: 17 dates (2026-04-01 to 2026-04-17) | removed 34 | added 34 | total 573
+Data current to: 2026-04-18
+
+
+===== UPDATE RUN: 21/04/2026, 12:09:53 =====
+shopify_sales.csv: 19 dates (2026-04-01 to 2026-04-20) | removed 118 | added 134 | total 953
+shopify_visitors.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 18 | added 20 | total 263
+google_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 108 | added 144 | total 854
+meta_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 37 | added 37 | total 573
+Data current to: 2026-04-20
+
+
+===== UPDATE RUN: 21/04/2026, 12:58:30 =====
+shopify_sales.csv: 19 dates (2026-04-01 to 2026-04-20) | removed 134 | added 134 | total 953
+shopify_visitors.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 20 | added 20 | total 263
+google_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 144 | added 144 | total 854
+meta_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 37 | added 37 | total 573
+Data current to: 2026-04-20
+
+
+===== UPDATE RUN: 21/04/2026, 12:58:58 =====
+shopify_sales.csv: 19 dates (2026-04-01 to 2026-04-20) | removed 134 | added 134 | total 953
+shopify_visitors.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 20 | added 20 | total 263
+google_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 144 | added 144 | total 854
+meta_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 37 | added 37 | total 573
+Data current to: 2026-04-20
+
+
+===== UPDATE RUN: 21/04/2026, 13:16:12 =====
+shopify_sales.csv: 19 dates (2026-04-01 to 2026-04-20) | removed 134 | added 134 | total 953
+shopify_visitors.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 20 | added 20 | total 263
+google_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 144 | added 144 | total 854
+meta_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 37 | added 37 | total 573
+Data current to: 2026-04-20
+
+
+===== UPDATE RUN: 21/04/2026, 13:21:01 =====
+shopify_sales.csv: 19 dates (2026-04-01 to 2026-04-20) | removed 134 | added 134 | total 953
+shopify_visitors.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 20 | added 20 | total 263
+google_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 144 | added 144 | total 854
+meta_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 37 | added 37 | total 573
+Data current to: 2026-04-20
+
+
+===== UPDATE RUN: 21/04/2026, 20:38:02 =====
+shopify_sales.csv: 19 dates (2026-04-01 to 2026-04-20) | removed 134 | added 134 | total 953
+shopify_visitors.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 20 | added 20 | total 263
+google_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 144 | added 144 | total 854
+meta_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 37 | added 37 | total 573
+Data current to: 2026-04-20
+
+
+===== UPDATE RUN: 21/04/2026, 20:57:32 =====
+shopify_sales.csv: 19 dates (2026-04-01 to 2026-04-20) | removed 134 | added 134 | total 953
+shopify_visitors.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 20 | added 20 | total 263
+google_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 144 | added 144 | total 854
+meta_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 37 | added 37 | total 573
+Data current to: 2026-04-20
+
+
+===== UPDATE RUN: 21/04/2026, 21:01:18 =====
+shopify_sales.csv: 19 dates (2026-04-01 to 2026-04-20) | removed 134 | added 134 | total 953
+shopify_visitors.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 20 | added 20 | total 263
+google_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 144 | added 144 | total 854
+meta_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 37 | added 37 | total 573
+Data current to: 2026-04-20
+
+
+===== UPDATE RUN: 21/04/2026, 22:08:50 =====
+shopify_sales.csv: 19 dates (2026-04-01 to 2026-04-20) | removed 134 | added 134 | total 953
+shopify_visitors.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 20 | added 20 | total 263
+google_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 144 | added 144 | total 854
+meta_ads.csv: 20 dates (2026-04-01 to 2026-04-20) | removed 37 | added 37 | total 573
+Data current to: 2026-04-20
+
+
+===== UPDATE RUN: 23/04/2026, 13:28:18 =====
+shopify_sales.csv: 22 dates (2026-04-01 to 2026-04-23) | removed 134 | added 154 | total 973
+shopify_visitors.csv: 23 dates (2026-04-01 to 2026-04-23) | removed 20 | added 23 | total 266
+google_ads.csv: 22 dates (2026-04-01 to 2026-04-22) | removed 144 | added 158 | total 868
+meta_ads.csv: 22 dates (2026-04-01 to 2026-04-22) | removed 37 | added 41 | total 577
+Data current to: 2026-04-23
+
+
+===== UPDATE RUN: 27/04/2026, 18:07:58 =====
+shopify_sales.csv: 22 dates (2026-04-01 to 2026-04-23) | removed 154 | added 154 | total 973
+shopify_visitors.csv: 23 dates (2026-04-01 to 2026-04-23) | removed 23 | added 23 | total 266
+google_ads.csv: 22 dates (2026-04-01 to 2026-04-22) | removed 158 | added 158 | total 868
+meta_ads.csv: 22 dates (2026-04-01 to 2026-04-22) | removed 41 | added 41 | total 577
+Data current to: 2026-04-23
+
+
+===== UPDATE RUN: 27/04/2026, 21:40:06 =====
+shopify_sales.csv: 26 dates (2026-04-01 to 2026-04-27) | removed 154 | added 189 | total 1008
+shopify_visitors.csv: 27 dates (2026-04-01 to 2026-04-27) | removed 23 | added 27 | total 270
+google_ads.csv: 58 dates (2026-03-01 to 2026-04-27) | removed 341 | added 407 | total 934
+meta_ads.csv: 84 dates (2026-02-01 to 2026-04-27) | removed 170 | added 180 | total 587
+Data current to: 2026-04-27
+
+
+===== UPDATE RUN: 28/04/2026, 12:43:07 =====
+shopify_sales.csv: 26 dates (2026-04-01 to 2026-04-27) | removed 189 | added 189 | total 1008
+shopify_visitors.csv: 27 dates (2026-04-01 to 2026-04-27) | removed 27 | added 27 | total 270
+google_ads.csv: 58 dates (2026-03-01 to 2026-04-27) | removed 407 | added 407 | total 934
+meta_ads.csv: 84 dates (2026-02-01 to 2026-04-27) | removed 180 | added 180 | total 587
+Data current to: 2026-04-27
+
+
+===== UPDATE RUN: 28/04/2026, 20:45:57 =====
+shopify_sales.csv: 26 dates (2026-04-01 to 2026-04-27) | removed 189 | added 189 | total 1008
+shopify_visitors.csv: 27 dates (2026-04-01 to 2026-04-27) | removed 27 | added 27 | total 270
+google_ads.csv: 58 dates (2026-03-01 to 2026-04-27) | removed 407 | added 407 | total 934
+meta_ads.csv: 84 dates (2026-02-01 to 2026-04-27) | removed 180 | added 180 | total 587
+Data current to: 2026-04-27
+
+
+===== UPDATE RUN: 28/04/2026, 20:48:26 =====
+shopify_sales.csv: 27 dates (2026-04-01 to 2026-04-28) | removed 189 | added 197 | total 1016
+shopify_visitors.csv: 28 dates (2026-04-01 to 2026-04-28) | removed 27 | added 28 | total 271
+google_ads.csv: 28 dates (2026-04-01 to 2026-04-28) | removed 193 | added 200 | total 941
+meta_ads.csv: 27 dates (2026-04-01 to 2026-04-27) | removed 51 | added 51 | total 587
+Data current to: 2026-04-28
+
+
+===== UPDATE RUN: 29/04/2026, 09:11:19 =====
+shopify_sales.csv: 27 dates (2026-04-01 to 2026-04-28) | removed 197 | added 197 | total 1016
+shopify_visitors.csv: 28 dates (2026-04-01 to 2026-04-28) | removed 28 | added 28 | total 271
+google_ads.csv: 28 dates (2026-04-01 to 2026-04-28) | removed 200 | added 200 | total 941
+meta_ads.csv: 27 dates (2026-04-01 to 2026-04-27) | removed 51 | added 51 | total 587
+Data current to: 2026-04-28
+
+
+===== UPDATE RUN: 29/04/2026, 21:24:12 =====
+shopify_sales.csv: 28 dates (2026-04-01 to 2026-04-29) | removed 197 | added 203 | total 1022
+shopify_visitors.csv: 29 dates (2026-04-01 to 2026-04-29) | removed 28 | added 29 | total 272
+google_ads.csv: 29 dates (2026-04-01 to 2026-04-29) | removed 200 | added 209 | total 950
+meta_ads.csv: 29 dates (2026-04-01 to 2026-04-29) | removed 51 | added 55 | total 591
+Data current to: 2026-04-29
+
+
+===== UPDATE RUN: 30/04/2026, 13:23:36 =====
+shopify_sales.csv: 28 dates (2026-04-01 to 2026-04-29) | removed 203 | added 203 | total 1022
+shopify_visitors.csv: 29 dates (2026-04-01 to 2026-04-29) | removed 29 | added 29 | total 272
+google_ads.csv: 29 dates (2026-04-01 to 2026-04-29) | removed 209 | added 209 | total 950
+meta_ads.csv: 29 dates (2026-04-01 to 2026-04-29) | removed 55 | added 55 | total 591
+Data current to: 2026-04-29
+
+
+===== UPDATE RUN: 01/05/2026, 12:50:10 =====
+shopify_sales.csv: 29 dates (2026-04-01 to 2026-04-30) | removed 203 | added 208 | total 1027
+shopify_visitors.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 29 | added 30 | total 273
+google_ads.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 209 | added 219 | total 960
+meta_ads.csv: 31 dates (2026-03-01 to 2026-03-31) | removed 71 | added 71 | total 591
+Data current to: 2026-04-30
+
+
+===== UPDATE RUN: 01/05/2026, 12:53:02 =====
+shopify_sales.csv: 29 dates (2026-04-01 to 2026-04-30) | removed 208 | added 208 | total 1027
+shopify_visitors.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 30 | added 30 | total 273
+google_ads.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 219 | added 219 | total 960
+meta_ads.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 55 | added 57 | total 593
+Data current to: 2026-04-30
+
+
+===== UPDATE RUN: 01/05/2026, 15:25:38 =====
+shopify_sales.csv: 29 dates (2026-04-01 to 2026-04-30) | removed 208 | added 208 | total 1027
+shopify_visitors.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 30 | added 30 | total 273
+google_ads.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 219 | added 219 | total 960
+meta_ads.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 57 | added 57 | total 593
+Data current to: 2026-04-30
+
+
+===== UPDATE RUN: 02/05/2026, 12:44:28 =====
+shopify_sales.csv: 29 dates (2026-04-01 to 2026-04-30) | removed 208 | added 208 | total 1027
+shopify_visitors.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 30 | added 30 | total 273
+google_ads.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 219 | added 219 | total 960
+meta_ads.csv: 30 dates (2026-04-01 to 2026-04-30) | removed 57 | added 57 | total 593
+Data current to: 2026-04-30
+
+
+===== UPDATE RUN: 04/05/2026, 15:47:24 =====
+shopify_sales.csv: 87 dates (2026-02-01 to 2026-05-03) | removed 535 | added 557 | total 1049
+  ERROR: Required columns missing in shopify_visitors.csv. Missing from /data: [] | Missing from /updates: [Day]. Aborting — nothing written.
+google_ads.csv: 184 dates (2025-11-01 to 2026-05-03) | removed 857 | added 1157 | total 1260
+meta_ads.csv: 14 dates (2026-04-19 to 2026-05-02) | removed 22 | added 24 | total 595
+Data current to: 2026-05-03
+
+
+===== UPDATE RUN: 04/05/2026, 15:49:25 =====
+shopify_sales.csv: 87 dates (2026-02-01 to 2026-05-03) | removed 557 | added 557 | total 1049
+shopify_visitors.csv: 34 dates (2026-04-01 to 2026-05-04) | removed 30 | added 34 | total 277
+google_ads.csv: 184 dates (2025-11-01 to 2026-05-03) | removed 1157 | added 1157 | total 1260
+meta_ads.csv: 14 dates (2026-04-19 to 2026-05-02) | removed 24 | added 24 | total 595
+Data current to: 2026-05-04
+
+
+===== UPDATE RUN: 04/05/2026, 15:51:00 =====
+shopify_sales.csv: 87 dates (2026-02-01 to 2026-05-03) | removed 557 | added 557 | total 1049
+shopify_visitors.csv: 34 dates (2026-04-01 to 2026-05-04) | removed 34 | added 34 | total 277
+google_ads.csv: 184 dates (2025-11-01 to 2026-05-03) | removed 1157 | added 1157 | total 1260
+meta_ads.csv: 3 dates (2026-05-01 to 2026-05-03) | removed 2 | added 3 | total 596
+Data current to: 2026-05-04
+
+
+===== UPDATE RUN: 05/05/2026, 20:31:16 =====
+shopify_sales.csv: 30 dates (2026-04-05 to 2026-05-05) | removed 203 | added 220 | total 1066
+shopify_visitors.csv: 31 dates (2026-04-05 to 2026-05-05) | removed 30 | added 31 | total 278
+google_ads.csv: 5 dates (2026-05-01 to 2026-05-05) | removed 27 | added 45 | total 1278
+meta_ads.csv: 5 dates (2026-05-01 to 2026-05-05) | removed 3 | added 7 | total 600
+Data current to: 2026-05-05
+
+
+===== UPDATE RUN: 05/05/2026, 20:47:27 =====
+shopify_sales.csv: 30 dates (2026-04-05 to 2026-05-05) | removed 220 | added 220 | total 1066
+shopify_visitors.csv: 31 dates (2026-04-05 to 2026-05-05) | removed 31 | added 31 | total 278
+google_ads.csv: 5 dates (2026-05-01 to 2026-05-05) | removed 45 | added 45 | total 1278
+meta_ads.csv: 5 dates (2026-05-01 to 2026-05-05) | removed 7 | added 7 | total 600
+Data current to: 2026-05-05
+
+
+===== UPDATE RUN: 05/05/2026, 20:48:00 =====
+shopify_sales.csv: 30 dates (2026-04-05 to 2026-05-05) | removed 220 | added 220 | total 1066
+shopify_visitors.csv: 31 dates (2026-04-05 to 2026-05-05) | removed 31 | added 31 | total 278
+google_ads.csv: 5 dates (2026-05-01 to 2026-05-05) | removed 45 | added 45 | total 1278
+meta_ads.csv: 5 dates (2026-05-01 to 2026-05-05) | removed 7 | added 7 | total 600
+Data current to: 2026-05-05
+
+
+===== UPDATE RUN: 07/05/2026, 13:19:16 =====
+shopify_sales.csv: 30 dates (2026-04-05 to 2026-05-05) | removed 220 | added 220 | total 1066
+shopify_visitors.csv: 31 dates (2026-04-05 to 2026-05-05) | removed 31 | added 31 | total 278
+google_ads.csv: 5 dates (2026-05-01 to 2026-05-05) | removed 45 | added 45 | total 1278
+meta_ads.csv: 5 dates (2026-05-01 to 2026-05-05) | removed 7 | added 7 | total 600
+Data current to: 2026-05-05
+
+
+===== UPDATE RUN: 08/05/2026, 16:48:54 =====
+shopify_sales.csv: 8 dates (2026-05-01 to 2026-05-08) | removed 39 | added 60 | total 1087
+shopify_visitors.csv: 8 dates (2026-05-01 to 2026-05-08) | removed 5 | added 8 | total 281
+google_ads.csv: 8 dates (2026-05-01 to 2026-05-08) | removed 45 | added 72 | total 1305
+meta_ads.csv: 7 dates (2026-05-01 to 2026-05-07) | removed 7 | added 13 | total 606
+Data current to: 2026-05-08
+
+
+===== UPDATE RUN: 08/05/2026, 17:09:59 =====
+shopify_sales.csv: 8 dates (2026-05-01 to 2026-05-08) | removed 60 | added 60 | total 1087
+shopify_visitors.csv: 8 dates (2026-05-01 to 2026-05-08) | removed 8 | added 8 | total 281
+google_ads.csv: 8 dates (2026-05-01 to 2026-05-08) | removed 72 | added 72 | total 1305
+meta_ads.csv: 7 dates (2026-05-01 to 2026-05-07) | removed 13 | added 13 | total 606
+Data current to: 2026-05-08
+
+
+===== UPDATE RUN: 11/05/2026, 14:15:27 =====
+shopify_sales.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 60 | added 74 | total 1101
+shopify_visitors.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 8 | added 11 | total 284
+google_ads.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 72 | added 99 | total 1332
+meta_ads.csv: 10 dates (2026-05-01 to 2026-05-10) | removed 13 | added 24 | total 617
+Data current to: 2026-05-11
+
+
+===== UPDATE RUN: 11/05/2026, 17:35:42 =====
+shopify_sales.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 74 | added 74 | total 1101
+shopify_visitors.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 11 | added 11 | total 284
+google_ads.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 99 | added 99 | total 1332
+meta_ads.csv: 10 dates (2026-05-01 to 2026-05-10) | removed 24 | added 24 | total 617
+Data current to: 2026-05-11
+
+
+===== UPDATE RUN: 11/05/2026, 19:43:18 =====
+shopify_sales.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 74 | added 74 | total 1101
+shopify_visitors.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 11 | added 11 | total 284
+google_ads.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 99 | added 99 | total 1332
+meta_ads.csv: 10 dates (2026-05-01 to 2026-05-10) | removed 24 | added 24 | total 617
+Data current to: 2026-05-11
+
+
+===== UPDATE RUN: 12/05/2026, 16:38:50 =====
+shopify_sales.csv: 12 dates (2026-05-01 to 2026-05-12) | removed 74 | added 83 | total 1110
+shopify_visitors.csv: 12 dates (2026-05-01 to 2026-05-12) | removed 11 | added 12 | total 285
+google_ads.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 99 | added 100 | total 1333
+meta_ads.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 24 | added 28 | total 621
+Data current to: 2026-05-12
+
+
+===== UPDATE RUN: 12/05/2026, 19:12:28 =====
+shopify_sales.csv: 12 dates (2026-05-01 to 2026-05-12) | removed 83 | added 83 | total 1110
+shopify_visitors.csv: 12 dates (2026-05-01 to 2026-05-12) | removed 12 | added 12 | total 285
+google_ads.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 100 | added 100 | total 1333
+meta_ads.csv: 11 dates (2026-05-01 to 2026-05-11) | removed 28 | added 28 | total 621
+Data current to: 2026-05-12
+
+
+===== DEV CHANGES: 12/05/2026 =====
+
+FEATURE: Target Cards (Tab 1 — Day-Wise)
+  - Added 3 target cards above the primary metric cards: Target Sales, Target ROI, Target Spend
+  - Cards only visible when the selected month has non-zero targets in targets.xlsx
+  - Each card shows: target value (big number), actual MTD, projected EOM, pace label, donut ring chart
+
+TARGET DATA FILE
+  - Created data/targets.xlsx with columns: Month, Target Sales (AUD), Target ROI (x), Target Spend (AUD)
+  - Covers 2026-05 through 2026-12 — fill in each month as needed
+  - Server auto-reloads targets.xlsx on save (no restart required)
+  - New API endpoint: GET /api/targets?month=YYYY-MM
+
+PACE LOGIC
+  - Sales & Spend: pace based on projected full-month value vs target (linear daily rate)
+  - ROI: no projection shown (can't linearise a ratio) — pace based on actual vs target directly
+  - On Track band: projected/actual within ±1% of target
+  - Ahead: projected/actual more than 1% above target
+  - Behind: projected/actual more than 1% below target
+
+DONUT CHART
+  - Ring chart fills proportionally to actual vs target (capped at 100%)
+  - Spend: always teal (no polarity)
+  - Sales/ROI: teal when progressing, amber only if lower_is_better and over target
+  - Percentage label centred in ring; shows ✓ when target is hit
+
+CARD LAYOUT
+  - Left column: title, target value, sub-lines (Actual / Projected / Pace)
+  - Right side: fixed 140×140px donut, flush to card edge with 20px padding
+  - Card height locked at 180px — no flex/aspect-ratio circular sizing
+
+
+===== UPDATE RUN: 13/05/2026, 10:34:36 =====
+shopify_sales.csv: 12 dates (2026-05-01 to 2026-05-12) | removed 83 | added 84 | total 1111
+shopify_visitors.csv: 13 dates (2026-05-01 to 2026-05-13) | removed 12 | added 13 | total 286
+google_ads.csv: 13 dates (2026-05-01 to 2026-05-13) | removed 100 | added 114 | total 1347
+meta_ads.csv: 12 dates (2026-05-01 to 2026-05-12) | removed 28 | added 32 | total 625
+Data current to: 2026-05-13
+
+
+===== UPDATE RUN: 15/05/2026, 16:18:05 =====
+shopify_sales.csv: 15 dates (2026-05-01 to 2026-05-15) | removed 84 | added 96 | total 1123
+shopify_visitors.csv: 15 dates (2026-05-01 to 2026-05-15) | removed 13 | added 15 | total 288
+google_ads.csv: 15 dates (2026-05-01 to 2026-05-15) | removed 114 | added 131 | total 1364
+meta_ads.csv: 14 dates (2026-05-01 to 2026-05-14) | removed 32 | added 40 | total 633
+Data current to: 2026-05-15
+
+
+===== UPDATE RUN: 16/05/2026, 10:57:59 =====
+shopify_sales.csv: 15 dates (2026-05-01 to 2026-05-15) | removed 96 | added 96 | total 1123
+shopify_visitors.csv: 15 dates (2026-05-01 to 2026-05-15) | removed 15 | added 15 | total 288
+google_ads.csv: 15 dates (2026-05-01 to 2026-05-15) | removed 131 | added 131 | total 1364
+meta_ads.csv: 14 dates (2026-05-01 to 2026-05-14) | removed 40 | added 40 | total 633
+Data current to: 2026-05-15
+
+
+===== UPDATE RUN: 18/05/2026, 15:41:20 =====
+shopify_sales.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 96 | added 125 | total 1152
+shopify_visitors.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 15 | added 18 | total 291
+google_ads.csv: 7 dates (2026-05-11 to 2026-05-17) | removed 41 | added 56 | total 1379
+meta_ads.csv: 17 dates (2026-05-01 to 2026-05-17) | removed 40 | added 52 | total 645
+Data current to: 2026-05-18
+
+
+===== UPDATE RUN: 18/05/2026, 18:33:21 =====
+shopify_sales.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 125 | added 125 | total 1152
+shopify_visitors.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 18 | added 18 | total 291
+google_ads.csv: 7 dates (2026-05-11 to 2026-05-17) | removed 56 | added 56 | total 1379
+meta_ads.csv: 17 dates (2026-05-01 to 2026-05-17) | removed 52 | added 52 | total 645
+Data current to: 2026-05-18
+
+
+===== UPDATE RUN: 18/05/2026, 18:35:38 =====
+shopify_sales.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 125 | added 125 | total 1152
+shopify_visitors.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 18 | added 18 | total 291
+google_ads.csv: 7 dates (2026-05-11 to 2026-05-17) | removed 56 | added 56 | total 1379
+meta_ads.csv: 17 dates (2026-05-01 to 2026-05-17) | removed 52 | added 52 | total 645
+Data current to: 2026-05-18
+
+
+===== UPDATE RUN: 18/05/2026, 18:35:47 =====
+shopify_sales.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 125 | added 125 | total 1152
+shopify_visitors.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 18 | added 18 | total 291
+google_ads.csv: 7 dates (2026-05-11 to 2026-05-17) | removed 56 | added 56 | total 1379
+meta_ads.csv: 17 dates (2026-05-01 to 2026-05-17) | removed 52 | added 52 | total 645
+Data current to: 2026-05-18
+
+
+===== UPDATE RUN: 18/05/2026, 19:35:54 =====
+shopify_sales.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 125 | added 125 | total 1152
+shopify_visitors.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 18 | added 18 | total 291
+google_ads.csv: 7 dates (2026-05-11 to 2026-05-17) | removed 56 | added 56 | total 1379
+meta_ads.csv: 17 dates (2026-05-01 to 2026-05-17) | removed 52 | added 52 | total 645
+Data current to: 2026-05-18
+
+
+===== UPDATE RUN: 19/05/2026, 12:55:07 =====
+shopify_sales.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 125 | added 125 | total 1152
+shopify_visitors.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 18 | added 18 | total 291
+google_ads.csv: 7 dates (2026-05-11 to 2026-05-17) | removed 56 | added 56 | total 1379
+meta_ads.csv: 17 dates (2026-05-01 to 2026-05-17) | removed 52 | added 52 | total 645
+Data current to: 2026-05-18
+
+
+===== UPDATE RUN: 19/05/2026, 18:57:14 =====
+shopify_sales.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 125 | added 125 | total 1152
+shopify_visitors.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 18 | added 18 | total 291
+google_ads.csv: 7 dates (2026-05-11 to 2026-05-17) | removed 56 | added 56 | total 1379
+meta_ads.csv: 17 dates (2026-05-01 to 2026-05-17) | removed 52 | added 52 | total 645
+Data current to: 2026-05-18
+
+
+===== UPDATE RUN: 19/05/2026, 18:59:47 =====
+shopify_sales.csv: 18 dates (2026-05-01 to 2026-05-18) | removed 125 | added 125 | total 1152
+shopify_visitors.csv: 19 dates (2026-05-01 to 2026-05-19) | removed 18 | added 19 | total 292
+google_ads.csv: 19 dates (2026-05-01 to 2026-05-19) | removed 146 | added 166 | total 1399
+meta_ads.csv: 7 dates (2026-05-12 to 2026-05-18) | removed 24 | added 28 | total 649
+Data current to: 2026-05-19
+
+
+===== UPDATE RUN: 21/05/2026, 18:37:29 =====
+shopify_sales.csv: 20 dates (2026-05-01 to 2026-05-20) | removed 125 | added 130 | total 1157
+shopify_visitors.csv: 21 dates (2026-05-01 to 2026-05-21) | removed 19 | added 21 | total 294
+google_ads.csv: 21 dates (2026-05-01 to 2026-05-21) | removed 166 | added 184 | total 1417
+meta_ads.csv: 21 dates (2026-05-01 to 2026-05-21) | removed 56 | added 68 | total 661
+Data current to: 2026-05-21
+
+
+===== UPDATE RUN: 21/05/2026, 18:37:40 =====
+shopify_sales.csv: 20 dates (2026-05-01 to 2026-05-20) | removed 130 | added 130 | total 1157
+shopify_visitors.csv: 21 dates (2026-05-01 to 2026-05-21) | removed 21 | added 21 | total 294
+google_ads.csv: 21 dates (2026-05-01 to 2026-05-21) | removed 184 | added 184 | total 1417
+meta_ads.csv: 21 dates (2026-05-01 to 2026-05-21) | removed 68 | added 68 | total 661
+Data current to: 2026-05-21
+
+
+===== UPDATE RUN: 27/05/2026, 11:02:29 =====
+  ERROR: Column mismatch in shopify_sales.csv. /data cols: [Day, Product title, Product variant SKU, Month, Net items sold, Gross sales, Discounts, Returns, Net sales, Taxes, Total sales, Orders] | /updates cols: [Day, Orders, Gross sales, Discounts, Returns, Net sales, Shipping charges, Duties, Additional fees, Taxes, Total sales, Day (previous_month), Orders (previous_month), Gross sales (previous_month), Discounts (previous_month), Returns (previous_month), Net sales (previous_month), Shipping charges (previous_month), Duties (previous_month), Additional fees (previous_month), Taxes (previous_month), Total sales (previous_month), Orders (previous_month) , Gross sales (previous_month) , Discounts (previous_month) , Returns (previous_month) , Net sales (previous_month) , Shipping charges (previous_month) , Duties (previous_month) , Additional fees (previous_month) , Taxes (previous_month) , Total sales (previous_month) ]. Aborting — nothing written.
+shopify_visitors.csv: 21 dates (2026-05-01 to 2026-05-21) | removed 21 | added 21 | total 294
+google_ads.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 184 | added 239 | total 1472
+meta_ads.csv: 26 dates (2026-05-01 to 2026-05-26) | removed 68 | added 88 | total 681
+Data current to: 2026-05-27
+
+
+===== UPDATE RUN: 27/05/2026, 11:08:35 =====
+shopify_sales.csv: 26 dates (2026-05-01 to 2026-05-26) | removed 130 | added 172 | total 1199
+shopify_visitors.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 21 | added 27 | total 300
+google_ads.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 239 | added 239 | total 1472
+meta_ads.csv: 26 dates (2026-05-01 to 2026-05-26) | removed 88 | added 88 | total 681
+Data current to: 2026-05-27
+
+
+===== UPDATE RUN: 28/05/2026, 09:50:19 =====
+shopify_sales.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 172 | added 174 | total 1201
+shopify_visitors.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 27 | added 27 | total 300
+google_ads.csv: 28 dates (2026-05-01 to 2026-05-28) | removed 239 | added 246 | total 1479
+meta_ads.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 88 | added 92 | total 685
+Data current to: 2026-05-28
+
+
+===== UPDATE RUN: 28/05/2026, 14:34:56 =====
+shopify_sales.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 174 | added 174 | total 1201
+shopify_visitors.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 27 | added 27 | total 300
+google_ads.csv: 28 dates (2026-05-01 to 2026-05-28) | removed 246 | added 246 | total 1479
+meta_ads.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 92 | added 92 | total 685
+Data current to: 2026-05-28
+
+
+===== UPDATE RUN: 29/05/2026, 22:00:39 =====
+shopify_sales.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 174 | added 174 | total 1201
+shopify_visitors.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 27 | added 27 | total 300
+google_ads.csv: 28 dates (2026-05-01 to 2026-05-28) | removed 246 | added 246 | total 1479
+meta_ads.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 92 | added 92 | total 685
+Data current to: 2026-05-28
+
+
+===== UPDATE RUN: 29/05/2026, 22:30:05 =====
+shopify_sales.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 174 | added 174 | total 1201
+shopify_visitors.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 27 | added 27 | total 300
+google_ads.csv: 28 dates (2026-05-01 to 2026-05-28) | removed 246 | added 246 | total 1479
+meta_ads.csv: 27 dates (2026-05-01 to 2026-05-27) | removed 92 | added 92 | total 685
+Data current to: 2026-05-28
+
+
+===== UPDATE RUN: 01/06/2026, 21:48:52 =====
+shopify_sales.csv: 31 dates (2026-05-01 to 2026-05-31) | removed 174 | added 217 | total 1244
+shopify_visitors.csv: 31 dates (2026-05-01 to 2026-05-31) | removed 27 | added 31 | total 304
+google_ads.csv: 31 dates (2026-05-01 to 2026-05-31) | removed 246 | added 275 | total 1508
+meta_ads.csv: 31 dates (2026-05-01 to 2026-05-31) | removed 92 | added 106 | total 699
+Data current to: 2026-05-31
+
+
+===== UPDATE RUN: 04/06/2026, 05:05:19 =====
+shopify_sales.csv: 30 dates (2026-05-05 to 2026-06-03) | removed 186 | added 213 | total 1271
+shopify_visitors.csv: 4 dates (2026-06-01 to 2026-06-04) | removed 0 | added 4 | total 308
+google_ads.csv: 8 dates (2026-05-28 to 2026-06-04) | removed 36 | added 68 | total 1540
+meta_ads.csv: 14 dates (2026-05-20 to 2026-06-02) | removed 46 | added 52 | total 705
+Data current to: 2026-06-04
+
+
+===== UPDATE RUN: 04/06/2026, 05:07:40 =====
+shopify_sales.csv: 30 dates (2026-05-05 to 2026-06-03) | removed 213 | added 213 | total 1271
+shopify_visitors.csv: 4 dates (2026-06-01 to 2026-06-04) | removed 4 | added 4 | total 308
+google_ads.csv: 8 dates (2026-05-28 to 2026-06-04) | removed 68 | added 68 | total 1540
+meta_ads.csv: 3 dates (2026-06-01 to 2026-06-03) | removed 6 | added 9 | total 708
+Data current to: 2026-06-04
+
+
+===== UPDATE RUN: 07/06/2026, 22:46:54 =====
+shopify_sales.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 27 | added 62 | total 1306
+shopify_visitors.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 4 | added 7 | total 311
+google_ads.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 32 | added 73 | total 1581
+meta_ads.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 9 | added 21 | total 720
+Data current to: 2026-06-07
+
+
+===== UPDATE RUN: 07/06/2026, 22:47:03 =====
+shopify_sales.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 62 | added 62 | total 1306
+shopify_visitors.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 7 | added 7 | total 311
+google_ads.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 73 | added 73 | total 1581
+meta_ads.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 21 | added 21 | total 720
+Data current to: 2026-06-07
+
+
+===== UPDATE RUN: 07/06/2026, 22:47:09 =====
+shopify_sales.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 62 | added 62 | total 1306
+shopify_visitors.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 7 | added 7 | total 311
+google_ads.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 73 | added 73 | total 1581
+meta_ads.csv: 7 dates (2026-06-01 to 2026-06-07) | removed 21 | added 21 | total 720
+Data current to: 2026-06-07
+
+
+===== UPDATE RUN: 09/06/2026, 10:28:46 =====
+shopify_sales.csv: 8 dates (2026-06-01 to 2026-06-08) | removed 62 | added 74 | total 1318
+shopify_visitors.csv: 9 dates (2026-06-01 to 2026-06-09) | removed 7 | added 9 | total 313
+google_ads.csv: 9 dates (2026-06-01 to 2026-06-09) | removed 73 | added 87 | total 1595
+meta_ads.csv: 8 dates (2026-06-01 to 2026-06-08) | removed 21 | added 24 | total 723
+Data current to: 2026-06-09
+
+
+===== UPDATE RUN: 12/06/2026, 11:00:56 =====
+shopify_sales.csv: 11 dates (2026-06-01 to 2026-06-11) | removed 74 | added 95 | total 1339
+shopify_visitors.csv: 12 dates (2026-06-01 to 2026-06-12) | removed 9 | added 12 | total 316
+google_ads.csv: 12 dates (2026-06-01 to 2026-06-12) | removed 87 | added 118 | total 1626
+meta_ads.csv: 11 dates (2026-06-01 to 2026-06-11) | removed 24 | added 37 | total 736
+Data current to: 2026-06-12
+
+
+===== UPDATE RUN: 14/06/2026, 00:33:10 =====
+shopify_sales.csv: 13 dates (2026-06-01 to 2026-06-13) | removed 95 | added 111 | total 1355
+shopify_visitors.csv: 14 dates (2026-06-01 to 2026-06-14) | removed 12 | added 14 | total 318
+google_ads.csv: 13 dates (2026-06-01 to 2026-06-13) | removed 118 | added 128 | total 1636
+meta_ads.csv: 13 dates (2026-06-01 to 2026-06-13) | removed 37 | added 47 | total 746
+Data current to: 2026-06-14
+
+
+===== UPDATE RUN: 15/06/2026, 04:35:06 =====
+shopify_sales.csv: 15 dates (2026-06-01 to 2026-06-15) | removed 111 | added 121 | total 1365
+shopify_visitors.csv: 15 dates (2026-06-01 to 2026-06-15) | removed 14 | added 15 | total 319
+google_ads.csv: 15 dates (2026-06-01 to 2026-06-15) | removed 128 | added 142 | total 1650
+meta_ads.csv: 14 dates (2026-06-01 to 2026-06-14) | removed 47 | added 52 | total 751
+Data current to: 2026-06-15
+

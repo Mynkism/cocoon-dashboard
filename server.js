@@ -860,6 +860,10 @@ app.get('/api/summary', (req, res) => {
     metaSales: [], googleSales: [],
   };
 
+  let cumRoiSales = 0, cumRoiSpend = 0;
+  let cumGConvValue = 0, cumGCost = 0;
+  let cumMPurchasesValue = 0, cumMSpend = 0;
+
   for (const date of sparklineDates) {
     // All dates are guaranteed <= DATA_CUTOFF_DATE after the loop above
     const s  = shopifySalesData.get(date);
@@ -869,14 +873,21 @@ app.get('/api/summary', (req, res) => {
 
     const daySpend = (g?.cost || 0) + (m2?.spend || 0);
 
+    cumRoiSales        += (s?.totalSales ?? 0);
+    cumRoiSpend        += daySpend;
+    cumGConvValue      += (g?.convValue ?? 0);
+    cumGCost           += (g?.cost ?? 0);
+    cumMPurchasesValue += (m2?.purchasesValue ?? 0);
+    cumMSpend          += (m2?.spend ?? 0);
+
     sparklines.totalSales.push(sanitize(s?.totalSales ?? 0));
     sparklines.orders.push(sanitize(s?.orders ?? 0));
     sparklines.totalSpend.push(sanitize(daySpend));
-    sparklines.roi.push(sanitize(daySpend > 0 ? (s?.totalSales ?? 0) / daySpend : null));
+    sparklines.roi.push(sanitize(cumRoiSpend > 0 ? cumRoiSales / cumRoiSpend : null));
     sparklines.netSales.push(sanitize(s?.netSales ?? 0));
     sparklines.aov.push(sanitize((s?.orders ?? 0) > 0 ? (s?.totalSales ?? 0) / (s?.orders ?? 0) : null));
-    sparklines.gRoas.push(sanitize((g?.cost ?? 0) > 0 ? (g?.convValue ?? 0) / (g?.cost ?? 0) : null));
-    sparklines.mRoas.push(sanitize((m2?.spend ?? 0) > 0 ? (m2?.purchasesValue ?? 0) / (m2?.spend ?? 0) : null));
+    sparklines.gRoas.push(sanitize(cumGCost > 0 ? cumGConvValue / cumGCost : null));
+    sparklines.mRoas.push(sanitize(cumMSpend > 0 ? cumMPurchasesValue / cumMSpend : null));
     sparklines.totalImpressions.push(sanitize((g?.impressions ?? 0) + (m2?.impressions ?? 0)));
     sparklines.totalClicks.push(sanitize((g?.clicks ?? 0) + (m2?.clicks ?? 0)));
     sparklines.visitors.push(sanitize(v?.visitors ?? 0));
@@ -1010,9 +1021,12 @@ app.get('/api/google', (req, res) => {
 
   // Daily series for sparklines
   const daily = [];
+  let gCumConvValue = 0, gCumCost = 0;
   for (const date of dates) {
     const g = googleDailyData.get(date);
     if (g) {
+      gCumConvValue += g.convValue;
+      gCumCost      += g.cost;
       daily.push({
         date,
         cost:        sanitize(g.cost),
@@ -1023,7 +1037,7 @@ app.get('/api/google', (req, res) => {
         ctr:  sanitize(g.impressions > 0 ? g.clicks / g.impressions : null),
         cpc:  sanitize(g.clicks > 0      ? g.cost / g.clicks : null),
         cpm:  sanitize(g.impressions > 0 ? (g.cost / g.impressions) * 1000 : null),
-        roas: sanitize(g.cost > 0        ? g.convValue / g.cost : null),
+        roas: sanitize(gCumCost > 0      ? gCumConvValue / gCumCost : null),
       });
     }
   }
@@ -1077,9 +1091,12 @@ app.get('/api/meta-ads', (req, res) => {
 
   // Daily series for sparklines
   const daily = [];
+  let mCumPurchasesValue = 0, mCumSpend = 0;
   for (const date of dates) {
     const m = metaAdsData.get(date);
     if (m) {
+      mCumPurchasesValue += m.purchasesValue;
+      mCumSpend          += m.spend;
       daily.push({
         date,
         spend:          sanitize(m.spend),
@@ -1091,7 +1108,7 @@ app.get('/api/meta-ads', (req, res) => {
         ctr:  sanitize(m.impressions > 0 ? m.clicks / m.impressions : null),
         cpc:  sanitize(m.clicks > 0      ? m.spend / m.clicks : null),
         cpm:  sanitize(m.impressions > 0 ? (m.spend / m.impressions) * 1000 : null),
-        roas: sanitize(m.spend > 0       ? m.purchasesValue / m.spend : null),
+        roas: sanitize(mCumSpend > 0     ? mCumPurchasesValue / mCumSpend : null),
       });
     }
   }

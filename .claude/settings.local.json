@@ -28,7 +28,24 @@
       "Bash(start http://localhost:3000)",
       "Bash(curl -s \"http://localhost:3000/api/summary?month=2026-03\")",
       "Bash(curl -s \"http://localhost:3000/app.js\")",
-      "Bash(curl -s \"http://localhost:3000/style.css\")"
+      "Bash(curl -s \"http://localhost:3000/style.css\")",
+      "Bash(curl -s \"http://localhost:3000/api/meta-ads?start=2025-10-01&end=2026-04-20\")",
+      "Bash(curl -s \"http://localhost:3000/api/meta-ads?start=2025-10-01&end=2026-04-20\" -o \"C:\\\\Users\\\\mayus\\\\meta-ads\\\\cocoon-dashboard\\\\tmp\\\\meta_resp.json\")",
+      "Bash(npx kill-port *)",
+      "Bash(curl -s \"http://localhost:3000/api/meta-ads?start=2025-10-01&end=2026-04-20\" -o tmp/meta_resp2.json)",
+      "Bash(curl -s \"http://localhost:3000/api/meta-ads?start=2026-04-01&end=2026-04-17\" -o tmp/meta_april.json)",
+      "Bash(curl -s \"http://localhost:3000/api/meta-ads?start=2026-04-01&end=2026-04-17\")",
+      "Bash(mkdir -p C:/Users/mayus/meta-ads/cocoon-dashboard/backup-before-ui-update/public)",
+      "Bash(mkdir -p C:/Users/mayus/meta-ads/cocoon-dashboard/backup-before-ui-update/data)",
+      "Bash(cp C:/Users/mayus/meta-ads/cocoon-dashboard/server.js C:/Users/mayus/meta-ads/cocoon-dashboard/backup-before-ui-update/server.js)",
+      "Bash(cp C:/Users/mayus/meta-ads/cocoon-dashboard/update.js C:/Users/mayus/meta-ads/cocoon-dashboard/backup-before-ui-update/update.js)",
+      "Bash(cp C:/Users/mayus/meta-ads/cocoon-dashboard/package.json C:/Users/mayus/meta-ads/cocoon-dashboard/backup-before-ui-update/package.json)",
+      "Bash(cp C:/Users/mayus/meta-ads/cocoon-dashboard/package-lock.json C:/Users/mayus/meta-ads/cocoon-dashboard/backup-before-ui-update/package-lock.json)",
+      "Bash(cp C:/Users/mayus/meta-ads/cocoon-dashboard/public/index.html C:/Users/mayus/meta-ads/cocoon-dashboard/backup-before-ui-update/public/index.html)",
+      "Bash(curl -s \"http://localhost:3000/api/analysis/wow?limit=all\")",
+      "Bash(pkill -f \"node server.js\")",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(netstat -ano)"
     ]
   }
 }
