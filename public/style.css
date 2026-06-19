@@ -12,8 +12,9 @@
   --accent-positive: #00d4aa;
   --accent-negative: #f59e0b;
   --accent-neutral:  #6366f1;
-  --accent-google:   #4285f4;
-  --accent-meta:     #0081fb;
+  --accent-google:    #4285f4;
+  --accent-meta:      #0081fb;
+  --accent-pinterest: #6366f1;
   --sparkline-color: #00d4aa;
   --chart-grid:      #1a1a1a;
   --glow-teal:       0 0 16px rgba(0, 212, 170, 0.35);
@@ -905,6 +906,19 @@ body::after {
   border-color: var(--accent-meta);
   color: #fff;
   box-shadow: 0 0 20px rgba(0, 129, 251, 0.3);
+}
+
+.platform-btn[data-platform="pinterest"] {
+  background: transparent;
+  border: 1px solid var(--border-accent);
+  color: var(--text-secondary);
+}
+
+.platform-btn[data-platform="pinterest"].active {
+  background: var(--accent-pinterest);
+  border-color: var(--accent-pinterest);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
 }
 
 .platform-view { }

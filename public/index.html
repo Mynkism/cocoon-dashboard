@@ -117,6 +117,7 @@
       <div class="platform-toggle-row">
         <button class="platform-btn active" data-platform="google">Google Ads</button>
         <button class="platform-btn"        data-platform="meta">Meta Ads</button>
+        <button class="platform-btn"        data-platform="pinterest">Pinterest Ads</button>
       </div>
 
       <!-- Google Ads view -->
@@ -164,6 +165,31 @@
               <thead id="meta-campaign-table-head"></thead>
               <tbody id="meta-campaign-table-body"></tbody>
               <tfoot id="meta-campaign-table-foot"></tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pinterest Ads view -->
+      <div id="pinterest-view" class="platform-view hidden">
+        <div class="date-range-row">
+          <label class="range-label">From</label>
+          <input type="date" id="pinterest-start" class="date-input" />
+          <label class="range-label">To</label>
+          <input type="date" id="pinterest-end"   class="date-input" />
+          <button class="apply-range-btn" id="pinterest-apply">Apply</button>
+        </div>
+        <div id="pinterest-cards" class="cards-grid-tab3"></div>
+        <div class="section-header-bar">
+          <span class="section-header-label">Ad Breakdown</span>
+          <span class="section-header-range" id="pinterest-range-display"></span>
+        </div>
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="pinterest-ad-table" class="data-table">
+              <thead id="pinterest-ad-table-head"></thead>
+              <tbody id="pinterest-ad-table-body"></tbody>
+              <tfoot id="pinterest-ad-table-foot"></tfoot>
             </table>
           </div>
         </div>

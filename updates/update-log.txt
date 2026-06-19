@@ -670,3 +670,35 @@ google_ads.csv: 15 dates (2026-06-01 to 2026-06-15) | removed 128 | added 142 | 
 meta_ads.csv: 14 dates (2026-06-01 to 2026-06-14) | removed 47 | added 52 | total 751
 Data current to: 2026-06-15
 
+
+===== UPDATE RUN: 16/06/2026, 20:53:08 =====
+shopify_sales.csv: 16 dates (2026-06-01 to 2026-06-16) | removed 121 | added 136 | total 1380
+shopify_visitors.csv: 16 dates (2026-06-01 to 2026-06-16) | removed 15 | added 16 | total 320
+google_ads.csv: 16 dates (2026-06-01 to 2026-06-16) | removed 142 | added 158 | total 1666
+meta_ads.csv: 15 dates (2026-06-01 to 2026-06-15) | removed 52 | added 57 | total 756
+Data current to: 2026-06-16
+
+
+===== UPDATE RUN: 18/06/2026, 10:40:05 =====
+shopify_sales.csv: 160 dates (2026-01-01 to 2026-06-17) | removed 1018 | added 1034 | total 1396
+  ERROR: Required columns missing in shopify_visitors.csv. Missing from /data: [] | Missing from /updates: [Day]. Aborting — nothing written.
+google_ads.csv: 109 dates (2026-03-01 to 2026-06-17) | removed 866 | added 829 | total 1629
+meta_ads.csv: 78 dates (2026-04-01 to 2026-06-17) | removed 220 | added 230 | total 766
+Data current to: 2026-06-17
+
+
+===== UPDATE RUN: 18/06/2026, 10:41:48 =====
+shopify_sales.csv: 160 dates (2026-01-01 to 2026-06-17) | removed 1034 | added 1034 | total 1396
+shopify_visitors.csv: 169 dates (2026-01-01 to 2026-06-18) | removed 167 | added 169 | total 322
+google_ads.csv: 109 dates (2026-03-01 to 2026-06-17) | removed 829 | added 829 | total 1629
+meta_ads.csv: 78 dates (2026-04-01 to 2026-06-17) | removed 230 | added 230 | total 766
+Data current to: 2026-06-18
+
+
+===== UPDATE RUN: 19/06/2026, 03:00:06 =====
+shopify_sales.csv: 18 dates (2026-06-01 to 2026-06-18) | removed 152 | added 157 | total 1401
+shopify_visitors.csv: 19 dates (2026-06-01 to 2026-06-19) | removed 18 | added 19 | total 323
+google_ads.csv: 18 dates (2026-06-01 to 2026-06-18) | removed 168 | added 179 | total 1640
+meta_ads.csv: 18 dates (2026-06-01 to 2026-06-18) | removed 67 | added 70 | total 769
+Data current to: 2026-06-19
+

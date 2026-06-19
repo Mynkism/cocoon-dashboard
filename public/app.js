@@ -19,6 +19,7 @@ let filterState         = {};
 let activePlatform      = 'google';
 let googleDateRange     = { start: null, end: null };
 let metaDateRange       = { start: null, end: null };
+let pinterestDateRange  = { start: null, end: null };
 let currentGoogleData   = null;
 let currentMetaData     = null;
 
@@ -1222,19 +1223,27 @@ function setupTab3() {
     btn.addEventListener('click', () => {
       activePlatform = btn.dataset.platform;
       document.querySelectorAll('.platform-btn').forEach(b => b.classList.toggle('active', b.dataset.platform === activePlatform));
-      document.getElementById('google-view')?.classList.toggle('hidden', activePlatform !== 'google');
-      document.getElementById('meta-view')?.classList.toggle('hidden',   activePlatform !== 'meta');
+      document.getElementById('google-view')?.classList.toggle('hidden',    activePlatform !== 'google');
+      document.getElementById('meta-view')?.classList.toggle('hidden',      activePlatform !== 'meta');
+      document.getElementById('pinterest-view')?.classList.toggle('hidden', activePlatform !== 'pinterest');
+      // Re-render charts now that the container is visible — charts created inside display:none
+      // get baked at 0×0 and resize() can't fix that; recreating is the only reliable fix.
+      if (activePlatform === 'google')    loadGoogleData();
+      else if (activePlatform === 'meta') loadMetaData();
+      else                                loadPinterestData();
     });
   });
 
-  document.getElementById('google-apply')?.addEventListener('click', loadGoogleData);
-  document.getElementById('meta-apply')?.addEventListener('click',   loadMetaData);
+  document.getElementById('google-apply')?.addEventListener('click',    loadGoogleData);
+  document.getElementById('meta-apply')?.addEventListener('click',      loadMetaData);
+  document.getElementById('pinterest-apply')?.addEventListener('click', loadPinterestData);
 }
 
 async function loadTab3() {
-  const [gDates, mDates] = await Promise.all([
+  const [gDates, mDates, pDates] = await Promise.all([
     fetch('/api/google/dates').then(r => r.json()),
     fetch('/api/meta-ads/dates').then(r => r.json()),
+    fetch('/api/pinterest/dates').then(r => r.json()),
   ]);
 
   const defaultStart = config.dataCutoff ? config.dataCutoff.slice(0, 7) + '-01' : gDates.min;
@@ -1257,7 +1266,15 @@ async function loadTab3() {
     metaDateRange = { start: mStart.value, end: mEnd.value };
   }
 
-  await Promise.all([loadGoogleData(), loadMetaData()]);
+  const pStart = document.getElementById('pinterest-start');
+  const pEnd   = document.getElementById('pinterest-end');
+  if (pStart && pEnd && pDates.min && pDates.max) {
+    pStart.min = pDates.min; pStart.max = pDates.max; pStart.value = pDates.min;
+    pEnd.min   = pDates.min; pEnd.max   = pDates.max; pEnd.value   = pDates.max;
+    pinterestDateRange = { start: pStart.value, end: pEnd.value };
+  }
+
+  await Promise.all([loadGoogleData(), loadMetaData(), loadPinterestData()]);
 }
 
 async function loadGoogleData() {
@@ -1559,6 +1576,117 @@ function renderMetaCampaignTable(campaigns) {
       renderMetaCampaignTable(campaigns);
     });
   });
+}
+
+// ─── Pinterest Ads (Tab 3) ────────────────────────────────────────────────────
+
+async function loadPinterestData() {
+  const start = document.getElementById('pinterest-start')?.value;
+  const end   = document.getElementById('pinterest-end')?.value;
+  if (!start || !end) return;
+  pinterestDateRange = { start, end };
+
+  const data = await fetch(`/api/pinterest?start=${start}&end=${end}`).then(r => r.json());
+
+  const rangeDisplay = document.getElementById('pinterest-range-display');
+  if (rangeDisplay) rangeDisplay.textContent = `${fmtDateDMY(data.start)} – ${fmtDateDMY(data.end)}`;
+
+  renderPinterestCards(data);
+  renderPinterestAdTable(data.ads || []);
+}
+
+function renderPinterestCards(data) {
+  const container = document.getElementById('pinterest-cards');
+  if (!container) return;
+
+  const t   = data.totals;
+  const pt  = data.priorTotals;
+  const dwd = t.daysWithData || 1;
+
+  const dailyMap = {};
+  data.daily.forEach(d => { dailyMap[d.date] = d; });
+  const allDates = getDatesInRangeFE(data.start, data.end);
+
+  const cards = [
+    { id: 'p-spend',  metricKey: 'spend',          priorKey: 'spend',          title: 'Total Spend',         val: t.spend,          type: 'currency',     zeroFill: true,  sparkFn: d => d.spend          },
+    { id: 'p-impr',   metricKey: 'impressions',     priorKey: 'impressions',    title: 'Impressions',         val: t.impressions,    type: 'integer_abbr', zeroFill: true,  sparkFn: d => d.impressions    },
+    { id: 'p-reach',  metricKey: 'reach',           priorKey: 'reach',          title: 'Reach',               val: t.reach,          type: 'integer_abbr', zeroFill: true,  sparkFn: d => d.reach          },
+    { id: 'p-cpm',    metricKey: 'cpm',             priorKey: 'cpm',            title: 'CPM',                 val: t.cpm,            type: 'currency',     zeroFill: false, sparkFn: d => d.cpm            },
+    { id: 'p-clicks', metricKey: 'pinClicks',       priorKey: 'pinClicks',      title: 'Pin Clicks',          val: t.pinClicks,      type: 'integer_abbr', zeroFill: true,  sparkFn: d => d.pinClicks      },
+    { id: 'p-ctr',    metricKey: 'ctr',             priorKey: 'ctr',            title: 'CTR',                 val: t.ctr,            type: 'percent',      zeroFill: false, sparkFn: d => d.ctr            },
+    { id: 'p-cpc',    metricKey: 'cpc',             priorKey: 'cpc',            title: 'CPC',                 val: t.cpc,            type: 'currency',     zeroFill: false, sparkFn: d => d.cpc            },
+    { id: 'p-saves',  metricKey: 'saves',           priorKey: 'saves',          title: 'Saves',               val: t.saves,          type: 'integer',      zeroFill: true,  sparkFn: d => d.saves          },
+    { id: 'p-eng',    metricKey: 'engagements',     priorKey: 'engagements',    title: 'Engagements',         val: t.engagements,    type: 'integer',      zeroFill: true,  sparkFn: d => d.engagements    },
+    { id: 'p-purch',  metricKey: 'purchases',       priorKey: 'purchases',      title: 'Purchases',           val: t.purchases,      type: 'integer',      zeroFill: true,  sparkFn: d => d.purchases      },
+    { id: 'p-rev',    metricKey: 'purchasesValue',  priorKey: 'purchasesValue', title: 'Revenue',             val: t.purchasesValue, type: 'currency',     zeroFill: true,  sparkFn: d => d.purchasesValue },
+    { id: 'p-roas',   metricKey: 'roas',            priorKey: 'roas',           title: 'ROAS',                val: t.roas,           type: 'multiplier',   zeroFill: false, sparkFn: d => d.roas           },
+  ];
+
+  renderTab3Cards(container, cards, dailyMap, allDates, pt, dwd, data);
+}
+
+const PINTEREST_AD_COLS = [
+  { key: 'name',           label: 'Campaign / Ad Group', type: 'string',       left: true },
+  { key: 'spend',          label: 'Spend',               type: 'currency'                 },
+  { key: 'impressions',    label: 'Impr.',               type: 'integer_abbr'             },
+  { key: 'reach',          label: 'Reach',               type: 'integer_abbr'             },
+  { key: 'cpm',            label: 'CPM',                 type: 'currency'                 },
+  { key: 'pinClicks',      label: 'Clicks',              type: 'integer'                  },
+  { key: 'ctr',            label: 'CTR',                 type: 'percent'                  },
+  { key: 'cpc',            label: 'CPC',                 type: 'currency'                 },
+  { key: 'saves',          label: 'Saves',               type: 'integer'                  },
+  { key: 'engagements',    label: 'Engagements',         type: 'integer'                  },
+  { key: 'purchases',      label: 'Purchases',           type: 'integer'                  },
+  { key: 'purchasesValue', label: 'Revenue',             type: 'currency'                 },
+  { key: 'roas',           label: 'ROAS',                type: 'multiplier'               },
+];
+
+function renderPinterestAdTable(ads) {
+  const head = document.getElementById('pinterest-ad-table-head');
+  const body = document.getElementById('pinterest-ad-table-body');
+  const foot = document.getElementById('pinterest-ad-table-foot');
+  if (!head || !body || !foot) return;
+
+  head.innerHTML = `<tr>${PINTEREST_AD_COLS.map(col =>
+    `<th style="${col.left ? 'text-align:left' : ''}">${col.label}</th>`
+  ).join('')}</tr>`;
+
+  // ads array is pre-ordered: campaign row, then its ad group rows, then next campaign, etc.
+  body.innerHTML = ads.map(row => {
+    const isCampaign = row.type === 'campaign';
+    const nameCell = `<td style="text-align:left;font-family:'Inter',sans-serif;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;${
+      isCampaign
+        ? 'color:var(--text-primary);font-weight:600;'
+        : 'color:var(--text-secondary);padding-left:20px;'
+    }" title="${row.name || ''}">${isCampaign ? row.name : '↳ ' + row.name}</td>`;
+
+    const metricCells = PINTEREST_AD_COLS.slice(1).map(col => fmtCell(row[col.key], col.type)).join('');
+    const rowStyle = isCampaign ? 'background:var(--bg-elevated);' : '';
+    return `<tr style="${rowStyle}">${nameCell}${metricCells}</tr>`;
+  }).join('');
+
+  // Footer totals — sum campaign rows only (they already include all ad group spend)
+  const campaigns = ads.filter(a => a.type === 'campaign');
+  const totals = {
+    spend:          campaigns.reduce((s, a) => s + (a.spend          || 0), 0),
+    impressions:    campaigns.reduce((s, a) => s + (a.impressions    || 0), 0),
+    reach:          campaigns.reduce((s, a) => s + (a.reach          || 0), 0),
+    pinClicks:      campaigns.reduce((s, a) => s + (a.pinClicks      || 0), 0),
+    saves:          campaigns.reduce((s, a) => s + (a.saves          || 0), 0),
+    engagements:    campaigns.reduce((s, a) => s + (a.engagements    || 0), 0),
+    purchases:      campaigns.reduce((s, a) => s + (a.purchases      || 0), 0),
+    purchasesValue: campaigns.reduce((s, a) => s + (a.purchasesValue || 0), 0),
+  };
+  totals.cpm  = totals.impressions > 0 ? (totals.spend / totals.impressions) * 1000 : null;
+  totals.ctr  = totals.impressions > 0 ? totals.pinClicks / totals.impressions       : null;
+  totals.cpc  = totals.pinClicks > 0   ? totals.spend / totals.pinClicks             : null;
+  totals.roas = totals.spend > 0       ? totals.purchasesValue / totals.spend        : null;
+
+  const footRow = document.createElement('tr');
+  footRow.innerHTML = `<td style="text-align:left;font-family:'Inter',sans-serif;color:var(--accent-neutral)">TOTAL</td>` +
+    PINTEREST_AD_COLS.slice(1).map(col => fmtCell(totals[col.key], col.type)).join('');
+  foot.innerHTML = '';
+  foot.appendChild(footRow);
 }
 
 // ─── Frontend date range helper ───────────────────────────────────────────────

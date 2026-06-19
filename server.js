@@ -19,6 +19,8 @@ let googleDailyData = new Map();       // aggregated by day
 let googleCampaignRows = [];           // raw campaign-level rows (before day-aggregation)
 let metaAdsData = new Map();
 let metaCampaignRows = [];           // raw campaign-level rows for Meta breakdown
+let pinterestDailyData = new Map();
+let pinterestAdRows = [];            // raw ad-level rows for Pinterest breakdown
 
 let DATA_CUTOFF_DATE = null;   // YYYY-MM-DD: min of each file's latest date
 let DATA_START_DATE = null;    // YYYY-MM-DD: earliest date across all files
@@ -233,6 +235,66 @@ function parseMetaAds(filePath) {
   return { data: dayMap, campaignRows, rowCount: records.length };
 }
 
+// Parse pinterest_ads.csv — ad-level rows, aggregate by Date
+// NOTE: Pinterest data is isolated — does NOT affect DATA_CUTOFF_DATE.
+// Brackets in Result/Cost per result columns are stripped but those fields are not used.
+function parsePinterestAds(filePath) {
+  const content = fs.readFileSync(filePath, 'utf8');
+  const records = parse(content, {
+    columns: true,
+    skip_empty_lines: true,
+    trim: true,
+    relax_column_count: true,
+  });
+
+  // Strip brackets from a value e.g. "[1.23]" → 1.23
+  function safePinNum(val) {
+    if (val === null || val === undefined || val === '') return 0;
+    const n = parseFloat(String(val).replace(/[\[\]]/g, '').trim());
+    return isNaN(n) ? 0 : n;
+  }
+
+  const dayMap = new Map();
+  const adRows = [];
+
+  for (const row of records) {
+    const day = (row['Date'] || '').trim();
+    if (!isValidDate(day)) continue;
+
+    // Raw sums only — all ratios (CTR, CPC, CPM, ROAS) are calculated server-side
+    const spend          = safePinNum(row['Spend in account currency']);
+    const impressions    = safeInt(row['Impressions']);
+    const reach          = safeInt(row['Reach']);
+    const pinClicks      = safeInt(row['Outbound clicks']);   // clicks to website
+    const saves          = safeInt(row['Saves']);
+    const engagements    = safeInt(row['Engagements']);
+    const purchases      = safePinNum(row['Total conversions (Checkout)']);
+    const purchasesValue = safePinNum(row['Total order value (Checkout)']);
+
+    const campaignName = (row['Campaign name'] || '').trim();
+    const adGroup      = (row['Ad group name'] || '').trim();
+
+    adRows.push({ day, campaignName, adGroup, spend, impressions, reach, pinClicks, saves, engagements, purchases, purchasesValue });
+
+    // Aggregate into daily totals
+    if (dayMap.has(day)) {
+      const e = dayMap.get(day);
+      e.spend          += spend;
+      e.impressions    += impressions;
+      e.reach          += reach;
+      e.pinClicks      += pinClicks;
+      e.saves          += saves;
+      e.engagements    += engagements;
+      e.purchases      += purchases;
+      e.purchasesValue += purchasesValue;
+    } else {
+      dayMap.set(day, { spend, impressions, reach, pinClicks, saves, engagements, purchases, purchasesValue });
+    }
+  }
+
+  return { data: dayMap, adRows, rowCount: records.length };
+}
+
 // ─── Targets loading ─────────────────────────────────────────────────────────
 
 function parseTargets(filePath) {
@@ -339,6 +401,21 @@ function loadData() {
   console.log(`DATA_CUTOFF_DATE: ${DATA_CUTOFF_DATE}\n`);
 
   parseTargets(path.join(dataDir, 'targets.xlsx'));
+
+  // Pinterest is loaded separately — isolated from DATA_CUTOFF_DATE calculation
+  const pinterestPath = path.join(dataDir, 'pinterest_ads.csv');
+  if (fs.existsSync(pinterestPath)) {
+    try {
+      const result = parsePinterestAds(pinterestPath);
+      pinterestDailyData = result.data;
+      pinterestAdRows    = result.adRows;
+      console.log(`[OK] pinterest_ads.csv: ${result.rowCount} rows loaded`);
+    } catch (err) {
+      console.error(`[ERROR] pinterest_ads.csv: ${err.message}`);
+    }
+  } else {
+    console.warn('[MISSING] pinterest_ads.csv (Pinterest tab will be empty)');
+  }
 }
 
 // ─── Metric computation helpers ──────────────────────────────────────────────
@@ -473,6 +550,32 @@ function aggregateMetaForRange(dates) {
     cpm:             impressions > 0 ? (spend / impressions) * 1000     : null,
     roas:            spend > 0       ? purchasesValue / spend           : null,
     costPerPurchase: purchases > 0   ? spend / purchases                : null,
+  };
+}
+
+// Aggregate only Pinterest data for a set of dates — all ratios calculated from raw sums
+function aggregatePinterestForRange(dates) {
+  let spend = 0, impressions = 0, reach = 0, pinClicks = 0, saves = 0, engagements = 0, purchases = 0, purchasesValue = 0, daysWithData = 0;
+  for (const date of dates) {
+    const p = pinterestDailyData.get(date);
+    if (p) {
+      daysWithData++;
+      spend          += p.spend;
+      impressions    += p.impressions;
+      reach          += p.reach;
+      pinClicks      += p.pinClicks;
+      saves          += p.saves;
+      engagements    += p.engagements;
+      purchases      += p.purchases;
+      purchasesValue += p.purchasesValue;
+    }
+  }
+  return {
+    spend, impressions, reach, pinClicks, saves, engagements, purchases, purchasesValue, daysWithData,
+    ctr:  impressions > 0  ? pinClicks / impressions          : null,
+    cpc:  pinClicks > 0    ? spend / pinClicks                : null,
+    cpm:  impressions > 0  ? (spend / impressions) * 1000     : null,
+    roas: spend > 0        ? purchasesValue / spend           : null,
   };
 }
 
@@ -1161,6 +1264,107 @@ app.get('/api/google/dates', (req, res) => {
 app.get('/api/meta-ads/dates', (req, res) => {
   const dates = [...metaAdsData.keys()].filter(d => !DATA_CUTOFF_DATE || d <= DATA_CUTOFF_DATE).sort();
   res.json({ min: dates[0] || null, max: dates[dates.length - 1] || null });
+});
+
+// Min/max selectable dates for the Pinterest Tab 3 date picker
+// Pinterest is not capped by DATA_CUTOFF_DATE — uses its own date range
+app.get('/api/pinterest/dates', (req, res) => {
+  const dates = [...pinterestDailyData.keys()].sort();
+  res.json({ min: dates[0] || null, max: dates[dates.length - 1] || null });
+});
+
+// Pinterest Ads data for Tab 3: daily totals + ad breakdown
+app.get('/api/pinterest', (req, res) => {
+  const { start, end } = req.query;
+  if (!start || !end || !isValidDate(start) || !isValidDate(end)) {
+    return res.status(400).json({ error: 'Invalid start or end date.' });
+  }
+
+  const pinterestDates = [...pinterestDailyData.keys()].sort();
+  const pinterestMax   = pinterestDates[pinterestDates.length - 1] || end;
+  const effectiveEnd   = end > pinterestMax ? pinterestMax : end;
+  const dates          = getDatesInRange(start, effectiveEnd);
+  const dateSet        = new Set(dates);
+
+  // Daily series for sparklines — cumulative ROAS
+  const daily = [];
+  let cumPurchasesValue = 0, cumSpend = 0;
+  for (const date of dates) {
+    const p = pinterestDailyData.get(date);
+    if (p) {
+      cumPurchasesValue += p.purchasesValue;
+      cumSpend          += p.spend;
+      daily.push({
+        date,
+        spend:          sanitize(p.spend),
+        impressions:    sanitize(p.impressions),
+        reach:          sanitize(p.reach),
+        pinClicks:      sanitize(p.pinClicks),
+        saves:          sanitize(p.saves),
+        engagements:    sanitize(p.engagements),
+        purchases:      sanitize(p.purchases),
+        purchasesValue: sanitize(p.purchasesValue),
+        ctr:  sanitize(p.impressions > 0 ? p.pinClicks / p.impressions : null),
+        cpc:  sanitize(p.pinClicks > 0   ? p.spend / p.pinClicks : null),
+        cpm:  sanitize(p.impressions > 0 ? (p.spend / p.impressions) * 1000 : null),
+        roas: sanitize(cumSpend > 0      ? cumPurchasesValue / cumSpend : null),
+      });
+    }
+  }
+
+  // Campaign breakdown — aggregate by campaign, then by ad group within campaign
+  const campaignMap = new Map();
+  for (const row of pinterestAdRows) {
+    if (!dateSet.has(row.day)) continue;
+    const cKey = row.campaignName;
+    if (!campaignMap.has(cKey)) {
+      campaignMap.set(cKey, {
+        name: row.campaignName, type: 'campaign',
+        spend: 0, impressions: 0, reach: 0, pinClicks: 0, saves: 0, engagements: 0, purchases: 0, purchasesValue: 0,
+        adGroups: new Map(),
+      });
+    }
+    const c = campaignMap.get(cKey);
+    c.spend += row.spend; c.impressions += row.impressions; c.reach += row.reach;
+    c.pinClicks += row.pinClicks; c.saves += row.saves; c.engagements += row.engagements;
+    c.purchases += row.purchases; c.purchasesValue += row.purchasesValue;
+
+    const agKey = row.adGroup;
+    if (!c.adGroups.has(agKey)) {
+      c.adGroups.set(agKey, {
+        name: row.adGroup, type: 'adgroup', campaignName: row.campaignName,
+        spend: 0, impressions: 0, reach: 0, pinClicks: 0, saves: 0, engagements: 0, purchases: 0, purchasesValue: 0,
+      });
+    }
+    const ag = c.adGroups.get(agKey);
+    ag.spend += row.spend; ag.impressions += row.impressions; ag.reach += row.reach;
+    ag.pinClicks += row.pinClicks; ag.saves += row.saves; ag.engagements += row.engagements;
+    ag.purchases += row.purchases; ag.purchasesValue += row.purchasesValue;
+  }
+
+  // Flatten into ordered array: campaign row, then its ad group rows (sorted by spend desc)
+  const addRatios = obj => ({
+    ...obj,
+    ctr:  sanitize(obj.impressions > 0 ? obj.pinClicks / obj.impressions : null),
+    cpc:  sanitize(obj.pinClicks > 0   ? obj.spend / obj.pinClicks : null),
+    cpm:  sanitize(obj.impressions > 0 ? (obj.spend / obj.impressions) * 1000 : null),
+    roas: sanitize(obj.spend > 0       ? obj.purchasesValue / obj.spend : null),
+  });
+
+  const ads = [];
+  for (const camp of [...campaignMap.values()].sort((a, b) => b.spend - a.spend)) {
+    const { adGroups, ...campData } = camp;
+    ads.push(addRatios(campData));
+    const sortedGroups = [...adGroups.values()].sort((a, b) => b.spend - a.spend);
+    for (const ag of sortedGroups) ads.push(addRatios(ag));
+  }
+
+  const totals     = sanitizeMetrics(aggregatePinterestForRange(dates));
+  const pr         = priorRangeFor(start, effectiveEnd);
+  const priorDates = getDatesInRange(pr.start, pr.end).filter(d => pinterestDates.includes(d));
+  const priorTotals = priorDates.length > 0 ? sanitizeMetrics(aggregatePinterestForRange(priorDates)) : null;
+
+  res.json({ daily, ads, totals, priorTotals, start, end: effectiveEnd });
 });
 
 // Targets for the selected month
