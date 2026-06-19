@@ -7,10 +7,11 @@ const UPDATES_DIR = path.join(__dirname, 'updates');
 const LOG_FILE = path.join(UPDATES_DIR, 'update-log.txt');
 
 const FILE_CONFIGS = [
-  { filename: 'shopify_sales.csv',    dateColumn: 'Day', skipLines: 0, bom: false },
-  { filename: 'shopify_visitors.csv', dateColumn: 'Day', skipLines: 0, bom: false, requiredColumns: ['Day', 'Online store visitors', 'Sessions'] },
-  { filename: 'google_ads.csv',       dateColumn: 'Day', skipLines: 2, bom: false },
-  { filename: 'meta_ads.csv',         dateColumn: 'Day', skipLines: 0, bom: true, requiredColumns: ['Day', 'Campaign name', 'Amount spent (AUD)', 'Impressions', 'Reach', 'Link clicks', 'Purchases', 'Purchases conversion value'] },
+  { filename: 'shopify_sales.csv',    dateColumn: 'Day',  skipLines: 0, bom: false },
+  { filename: 'shopify_visitors.csv', dateColumn: 'Day',  skipLines: 0, bom: false, requiredColumns: ['Day', 'Online store visitors', 'Sessions'] },
+  { filename: 'google_ads.csv',       dateColumn: 'Day',  skipLines: 2, bom: false },
+  { filename: 'meta_ads.csv',         dateColumn: 'Day',  skipLines: 0, bom: true,  requiredColumns: ['Day', 'Campaign name', 'Amount spent (AUD)', 'Impressions', 'Reach', 'Link clicks', 'Purchases', 'Purchases conversion value'] },
+  { filename: 'pinterest_ads.csv',    dateColumn: 'Date', skipLines: 0, bom: false, requiredColumns: ['Date', 'Campaign name', 'Ad group name', 'Spend in account currency', 'Impressions', 'Reach', 'Outbound clicks', 'Saves', 'Engagements', 'Total conversions (Checkout)', 'Total order value (Checkout)'] },
 ];
 
 // Minimal CSV serialiser — quotes any field that contains comma, quote, or newline
