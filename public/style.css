@@ -621,6 +621,48 @@ body::after {
 .analysis-layout { position: relative; }
 .analysis-content { width: 100%; }
 
+/* ─── Channel toggle ─────────────────────────────────────────────────────── */
+.channel-toggle-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.channel-btn {
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 18px;
+  background: transparent;
+  border: 1px solid var(--border-accent);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
+}
+
+.channel-btn:hover { color: var(--text-primary); border-color: var(--text-secondary); }
+
+.channel-btn[data-channel="overall"].active {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+.channel-btn[data-channel="google"].active {
+  background: var(--accent-google);
+  border-color: var(--accent-google);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(66, 133, 244, 0.3);
+}
+
+.channel-btn[data-channel="meta"].active {
+  background: var(--accent-meta);
+  border-color: var(--accent-meta);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(0, 129, 251, 0.3);
+}
+
 /* ─── Filter panel ──────────────────────────────────────────────────────── */
 .filter-toggle-btn {
   background: rgba(26, 26, 26, 0.9);

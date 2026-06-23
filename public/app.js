@@ -14,6 +14,7 @@ let currentTargetsData  = null;
 let initialAnimDone     = false;
 
 let analysisSubTab      = 'mom';
+let analysisChannel     = 'overall';
 let filterState         = {};
 
 let activePlatform      = 'google';
@@ -86,6 +87,32 @@ const METRIC_POLARITY = {
 };
 
 // ─── Analysis metric definitions ─────────────────────────────────────────────
+const GOOGLE_METRICS = [
+  { key: 'gCost',        label: 'Ad Spend',    type: 'currency',     group: 'Google Ads' },
+  { key: 'gConvValue',   label: 'Conv. Value', type: 'currency',     group: 'Google Ads' },
+  { key: 'gRoas',        label: 'ROAS',        type: 'multiplier',   group: 'Google Ads' },
+  { key: 'gConversions', label: 'Conversions', type: 'integer',      group: 'Google Ads' },
+  { key: 'gImpressions', label: 'Impressions', type: 'integer_abbr', group: 'Google Ads' },
+  { key: 'gClicks',      label: 'Clicks',      type: 'integer_abbr', group: 'Google Ads' },
+  { key: 'ctrGoogle',    label: 'CTR',         type: 'percent',      group: 'Google Ads' },
+  { key: 'cpcGoogle',    label: 'CPC',         type: 'currency',     group: 'Google Ads' },
+  { key: 'cpmGoogle',    label: 'CPM',         type: 'currency',     group: 'Google Ads' },
+];
+
+const META_METRICS = [
+  { key: 'mSpend',          label: 'Ad Spend',      type: 'currency',     group: 'Meta Ads' },
+  { key: 'mPurchasesValue', label: 'Purchase Value', type: 'currency',    group: 'Meta Ads' },
+  { key: 'mRoas',           label: 'ROAS',          type: 'multiplier',   group: 'Meta Ads' },
+  { key: 'mPurchases',      label: 'Purchases',     type: 'integer',      group: 'Meta Ads' },
+  { key: 'costPerPurchase', label: 'Cost/Purchase', type: 'currency',     group: 'Meta Ads' },
+  { key: 'mImpressions',    label: 'Impressions',   type: 'integer_abbr', group: 'Meta Ads' },
+  { key: 'mReach',          label: 'Reach',         type: 'integer_abbr', group: 'Meta Ads' },
+  { key: 'mClicks',         label: 'Clicks',        type: 'integer_abbr', group: 'Meta Ads' },
+  { key: 'ctrMeta',         label: 'CTR',           type: 'percent',      group: 'Meta Ads' },
+  { key: 'cpcMeta',         label: 'CPC',           type: 'currency',     group: 'Meta Ads' },
+  { key: 'cpmMeta',         label: 'CPM',           type: 'currency',     group: 'Meta Ads' },
+];
+
 const ANALYSIS_METRICS = [
   // ── Advertising
   { key: 'totalImpressions', label: 'Impressions',   type: 'integer_abbr', group: 'Advertising', defaultChecked: true  },
@@ -213,6 +240,7 @@ async function init() {
       document.querySelector('.tab-btn[data-tab="daywise"]')?.click();
     });
   }
+  setupChannelButtons();
   setupFilterPanel();
   setupAnalysisSubTabs();
   setupTab3();
@@ -869,6 +897,21 @@ function renderDayTableFoot(rows, summary) {
 }
 
 // ─── TAB 2: ANALYSIS ─────────────────────────────────────────────────────────
+function setupChannelButtons() {
+  const filterToggle = document.getElementById('filter-toggle');
+
+  document.querySelectorAll('.channel-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      analysisChannel = btn.dataset.channel;
+      document.querySelectorAll('.channel-btn').forEach(b =>
+        b.classList.toggle('active', b.dataset.channel === analysisChannel)
+      );
+      if (filterToggle) filterToggle.style.visibility = analysisChannel === 'overall' ? '' : 'hidden';
+      renderAnalysisContent();
+    });
+  });
+}
+
 function setupFilterPanel() {
   ANALYSIS_METRICS.forEach(m => { filterState[m.key] = m.defaultChecked; });
 
@@ -994,6 +1037,8 @@ async function renderAnalysisContent() {
 
 // ── Shared comparison table builder ──────────────────────────────────────────
 function selectedMetrics() {
+  if (analysisChannel === 'google') return GOOGLE_METRICS;
+  if (analysisChannel === 'meta')   return META_METRICS;
   return ANALYSIS_METRICS.filter(m => filterState[m.key]);
 }
 
