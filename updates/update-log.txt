@@ -764,3 +764,21 @@ meta_ads.csv: 23 dates (2026-06-01 to 2026-06-23) | removed 82 | added 84 | tota
 pinterest_ads.csv: 7 dates (2026-06-16 to 2026-06-22) | removed 160 | added 160 | total 171
 Data current to: 2026-06-24
 
+
+===== UPDATE RUN: 25/06/2026, 01:57:51 =====
+shopify_sales.csv: 25 dates (2026-06-01 to 2026-06-25) | removed 198 | added 209 | total 1453
+shopify_visitors.csv: 25 dates (2026-06-01 to 2026-06-25) | removed 24 | added 25 | total 329
+google_ads.csv: 24 dates (2026-06-01 to 2026-06-24) | removed 245 | added 151 | total 1612
+meta_ads.csv: 24 dates (2026-06-01 to 2026-06-24) | removed 84 | added 86 | total 785
+pinterest_ads.csv: 7 dates (2026-06-17 to 2026-06-23) | removed 145 | added 198 | total 224
+Data current to: 2026-06-25
+
+
+===== UPDATE RUN: 25/06/2026, 23:48:25 =====
+shopify_sales.csv: 25 dates (2026-06-01 to 2026-06-25) | removed 209 | added 215 | total 1459
+shopify_visitors.csv: 25 dates (2026-06-01 to 2026-06-25) | removed 25 | added 25 | total 329
+google_ads.csv: 25 dates (2026-06-01 to 2026-06-25) | removed 151 | added 258 | total 1719
+meta_ads.csv: 25 dates (2026-06-01 to 2026-06-25) | removed 86 | added 88 | total 787
+pinterest_ads.csv: 7 dates (2026-06-18 to 2026-06-24) | removed 181 | added 220 | total 263
+Data current to: 2026-06-25
+

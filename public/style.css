@@ -1211,3 +1211,47 @@ body::after {
   .cards-grid-tab3       { grid-template-columns: 1fr 1fr; }
   .cards-grid-target     { grid-template-columns: 1fr 1fr; }
 }
+
+/* ─── Loading skeleton ───────────────────────────────────────────────────── */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.75; }
+}
+
+.skeleton-card {
+  pointer-events: none;
+  cursor: default;
+}
+
+.skeleton-line {
+  background: var(--bg-elevated);
+  border-radius: 4px;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-title {
+  height: 11px;
+  width: 55%;
+  margin-bottom: 14px;
+}
+
+.skeleton-value {
+  height: 30px;
+  width: 75%;
+  margin-bottom: 12px;
+  animation-delay: 0.1s;
+}
+
+.skeleton-sub {
+  height: 10px;
+  width: 45%;
+  animation-delay: 0.2s;
+}
+
+.table-loading-cell {
+  text-align: center;
+  padding: 32px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+}

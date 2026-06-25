@@ -31,6 +31,34 @@ let wowShowAll = false;
 
 let pendingModal = null;
 
+// ─── API cache + fetch utilities ──────────────────────────────────────────────
+const apiCache        = new Map();
+const CACHE_TTL_MS    = 5 * 60 * 1000; // 5 minutes
+const STALE_AFTER_MS  = 5 * 60 * 1000;
+const lastFetchTs     = { tab1: 0, analysis: 0, tab3: 0 };
+
+// Retry once after 2 s on any network/HTTP failure
+async function fetchWithRetry(url) {
+  const attempt = () => fetch(url).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); });
+  try {
+    return await attempt();
+  } catch (_) {
+    await new Promise(r => setTimeout(r, 2000));
+    return attempt();
+  }
+}
+
+// Return cached response if still fresh, otherwise fetch (and cache the result)
+function apiFetch(url) {
+  const cached = apiCache.get(url);
+  if (cached && Date.now() - cached.ts < CACHE_TTL_MS) return Promise.resolve(cached.data);
+  return fetchWithRetry(url).then(data => { apiCache.set(url, { data, ts: Date.now() }); return data; });
+}
+
+function isDataStale(key) {
+  return Date.now() - lastFetchTs[key] > STALE_AFTER_MS;
+}
+
 // ─── Metric polarity — drives arrow colour and change-cell colour ─────────────
 // higher_is_better: up = teal (good), down = amber (bad)
 // lower_is_better:  down = teal (good), up = amber (bad)
@@ -221,8 +249,10 @@ function fmtWeekRange(start, end) {
 
 // ─── Initialisation ───────────────────────────────────────────────────────────
 async function init() {
+  showLoadingSkeletons();
+
   try {
-    config = await fetch('/api/config').then(r => r.json());
+    config = await apiFetch('/api/config');
   } catch (e) {
     console.error('Failed to load config:', e);
     return;
@@ -250,6 +280,13 @@ async function init() {
   selectedMonth = (config.availableMonths || []).includes(todayYM)
     ? todayYM
     : (config.availableMonths?.[0] || null);
+
+  // Silently refresh when the browser tab regains focus after being hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' || !config || !selectedMonth) return;
+    const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
+    if (activeTab === 'daywise' && isDataStale('tab1')) renderTab1(selectedMonth);
+  });
 
   await loadTab1();
 }
@@ -384,11 +421,15 @@ function setupGooeyNav() {
       positionPill(btn, true);
       burstParticles(btn);
 
-      if (tab === 'daywise' && selectedMonth && currentSummaryData) {
-        destroyAllSparklines();
-        renderTargetCards(currentSummaryData, currentTargetsData);
-        renderPrimaryCards(currentSummaryData);
-        renderSecondaryCards(currentSummaryData);
+      if (tab === 'daywise' && selectedMonth) {
+        if (isDataStale('tab1')) {
+          renderTab1(selectedMonth);
+        } else if (currentSummaryData) {
+          destroyAllSparklines();
+          renderTargetCards(currentSummaryData, currentTargetsData);
+          renderPrimaryCards(currentSummaryData);
+          renderSecondaryCards(currentSummaryData);
+        }
       }
       if (tab === 'analysis') {
         loadAnalysis();
@@ -427,6 +468,25 @@ function closeModal() {
   destroyModalChart();
 }
 
+// ─── Skeleton placeholders ────────────────────────────────────────────────────
+function showLoadingSkeletons() {
+  const skelCard = (extra) =>
+    `<div class="card ${extra} skeleton-card">
+      <div class="skeleton-line skeleton-title"></div>
+      <div class="skeleton-line skeleton-value"></div>
+      <div class="skeleton-line skeleton-sub"></div>
+    </div>`;
+
+  const primary = document.getElementById('primary-cards');
+  if (primary) primary.innerHTML = Array(4).fill(0).map(() => skelCard('card-primary')).join('');
+
+  const secondary = document.getElementById('secondary-cards');
+  if (secondary) secondary.innerHTML = Array(9).fill(0).map(() => skelCard('card-secondary')).join('');
+
+  const tbody = document.getElementById('day-table-body');
+  if (tbody) tbody.innerHTML = '<tr><td colspan="26" class="table-loading-cell">Loading…</td></tr>';
+}
+
 // ─── TAB 1: DAY-WISE ─────────────────────────────────────────────────────────
 async function loadTab1() {
   setupMonthSelector();
@@ -452,19 +512,33 @@ function setupMonthSelector() {
 }
 
 async function renderTab1(month) {
-  const [summaryRes, dailyRes, targetsRes] = await Promise.all([
-    fetch(`/api/summary?month=${month}`).then(r => r.json()),
-    fetch(`/api/daily?month=${month}`).then(r => r.json()),
-    fetch(`/api/targets?month=${month}`).then(r => r.json()).catch(() => null),
-  ]);
-  currentSummaryData = summaryRes;
-  currentTargetsData = targetsRes;
   destroyAllSparklines();
-  renderTargetCards(summaryRes, targetsRes);
-  renderPrimaryCards(summaryRes);
-  renderSecondaryCards(summaryRes);
-  renderDayTable(dailyRes, month, summaryRes);
-  updateTicker(summaryRes, month);
+  showLoadingSkeletons();
+
+  const summaryPromise = apiFetch(`/api/summary?month=${month}`);
+  const dailyPromise   = apiFetch(`/api/daily?month=${month}`);
+  const targetsPromise = apiFetch(`/api/targets?month=${month}`).catch(() => null);
+
+  // Cards render as soon as summary arrives — don't wait for the table data
+  summaryPromise.then(summaryRes => {
+    currentSummaryData = summaryRes;
+    renderPrimaryCards(summaryRes);
+    renderSecondaryCards(summaryRes);
+    updateTicker(summaryRes, month);
+    // Target cards also need targets — render once both are ready
+    targetsPromise.then(targetsRes => {
+      currentTargetsData = targetsRes;
+      renderTargetCards(summaryRes, targetsRes);
+    });
+  });
+
+  // Table renders as soon as both summary and daily are ready
+  Promise.all([summaryPromise, dailyPromise]).then(([summaryRes, dailyRes]) => {
+    renderDayTable(dailyRes, month, summaryRes);
+  });
+
+  await Promise.all([summaryPromise, dailyPromise, targetsPromise]);
+  lastFetchTs.tab1 = Date.now();
 }
 
 // ─── Count-up animation ───────────────────────────────────────────────────────
@@ -1021,6 +1095,7 @@ function setupAnalysisSubTabs() {
 
 async function loadAnalysis() {
   await renderAnalysisContent();
+  lastFetchTs.analysis = Date.now();
 }
 
 async function renderAnalysisContent() {
@@ -1144,7 +1219,7 @@ function computeChange(curr, prev, type, metricKey) {
 // ── Month on Month ────────────────────────────────────────────────────────────
 async function renderMoM(container) {
   container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:16px">Loading…</p>';
-  const data = await fetch('/api/analysis/mom').then(r => r.json());
+  const data = await apiFetch('/api/analysis/mom');
 
   if (!data.length) {
     container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:16px">Not enough data for month comparisons.</p>';
@@ -1164,7 +1239,7 @@ async function renderMoM(container) {
 async function renderWoW(container) {
   container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:16px">Loading…</p>';
   const limit = wowShowAll ? 'all' : DEFAULT_WOW_LIMIT;
-  const data  = await fetch(`/api/analysis/wow?limit=${limit}`).then(r => r.json());
+  const data  = await apiFetch(`/api/analysis/wow?limit=${limit}`);
 
   if (!data.pairs.length) {
     container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:16px">Not enough data for week comparisons.</p>';
@@ -1197,7 +1272,7 @@ async function renderWoW(container) {
 // ── Month to Date ─────────────────────────────────────────────────────────────
 async function renderMTD(container) {
   container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:16px">Loading…</p>';
-  const data = await fetch('/api/analysis/mtd').then(r => r.json());
+  const data = await apiFetch('/api/analysis/mtd');
 
   if (!data) {
     container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:16px">No data available.</p>';
@@ -1247,8 +1322,8 @@ function renderCustomRange(container) {
     resultEl.innerHTML = '<p style="color:var(--text-muted);font-size:13px;padding:16px">Loading…</p>';
 
     const [dataA, dataB] = await Promise.all([
-      fetch(`/api/analysis/custom?start=${start}&end=${end}`).then(r => r.json()),
-      fetch(`/api/analysis/custom?start=${cmpStart}&end=${cmpEnd}`).then(r => r.json()),
+      apiFetch(`/api/analysis/custom?start=${start}&end=${end}`),
+      apiFetch(`/api/analysis/custom?start=${cmpStart}&end=${cmpEnd}`),
     ]);
 
     const labelA   = `${fmtDateDMY(dataA.start)} – ${fmtDateDMY(dataA.end)}`;
@@ -1286,9 +1361,9 @@ function setupTab3() {
 
 async function loadTab3() {
   const [gDates, mDates, pDates] = await Promise.all([
-    fetch('/api/google/dates').then(r => r.json()),
-    fetch('/api/meta-ads/dates').then(r => r.json()),
-    fetch('/api/pinterest/dates').then(r => r.json()),
+    apiFetch('/api/google/dates'),
+    apiFetch('/api/meta-ads/dates'),
+    apiFetch('/api/pinterest/dates'),
   ]);
 
   const defaultStart = config.dataCutoff ? config.dataCutoff.slice(0, 7) + '-01' : gDates.min;
@@ -1320,6 +1395,7 @@ async function loadTab3() {
   }
 
   await Promise.all([loadGoogleData(), loadMetaData(), loadPinterestData()]);
+  lastFetchTs.tab3 = Date.now();
 }
 
 async function loadGoogleData() {
@@ -1328,7 +1404,7 @@ async function loadGoogleData() {
   if (!start || !end) return;
   googleDateRange = { start, end };
 
-  const data = await fetch(`/api/google?start=${start}&end=${end}`).then(r => r.json());
+  const data = await apiFetch(`/api/google?start=${start}&end=${end}`);
   currentGoogleData = data;
 
   const rangeDisplay = document.getElementById('google-range-display');
@@ -1344,7 +1420,7 @@ async function loadMetaData() {
   if (!start || !end) return;
   metaDateRange = { start, end };
 
-  const data = await fetch(`/api/meta-ads?start=${start}&end=${end}`).then(r => r.json());
+  const data = await apiFetch(`/api/meta-ads?start=${start}&end=${end}`);
   currentMetaData = data;
 
   const rangeDisplay = document.getElementById('meta-range-display');
@@ -1631,7 +1707,7 @@ async function loadPinterestData() {
   if (!start || !end) return;
   pinterestDateRange = { start, end };
 
-  const data = await fetch(`/api/pinterest?start=${start}&end=${end}`).then(r => r.json());
+  const data = await apiFetch(`/api/pinterest?start=${start}&end=${end}`);
 
   const rangeDisplay = document.getElementById('pinterest-range-display');
   if (rangeDisplay) rangeDisplay.textContent = `${fmtDateDMY(data.start)} – ${fmtDateDMY(data.end)}`;
