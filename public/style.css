@@ -1128,9 +1128,16 @@ body::after {
   border-top: 1px solid rgba(0, 212, 170, 0.08);
   display: flex;
   height: 40px;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0 24px;
   background: rgba(0, 0, 0, 0.6);
+}
+
+.footer-version {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
 }
 
 .footer-cutoff {
