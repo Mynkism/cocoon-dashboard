@@ -1414,55 +1414,68 @@ Day,Product title,Product variant SKU,Month,Net items sold,Gross sales,Discounts
 2026-06-20,,,2026-06-01,0,0,0,0,0,15.25,167.76,0
 2026-06-20,Australian made LOLLI SPROUT / COCOON NEST Sheet set,CNSS,2026-06-01,1,54.5,-10.9,0,43.6,4.36,47.96,1
 2026-06-20,Australian made Lolli Sprout / COCOON Nest Mattress Protector Set,CNMP,2026-06-01,1,63.61,-12.71,0,50.9,5.09,55.99,1
-2026-06-21,Australian made Lolli Sprout / COCOON Nest Mattress Protector Set,CNMP,2026-06-01,3,190.84,-38.14,0,152.7,15.27,167.97,2
 2026-06-21,,,2026-06-01,0,0,0,0,0,44.79,492.86,0
-2026-06-21,COCOON RIO Electric Recliner Glider Nursery Chair in Vanilla,CRERV,2026-06-01,1,908.18,0,0,908.18,90.82,999,1
-2026-06-21,COCOON BONDI Electric Recliner Glider Chair in Light Grey Boucle,CBERLG,2026-06-01,1,908.18,0,0,908.18,90.82,999,1
-2026-06-21,Lolli Furniture Sprout 4 in 1 Natural beech wood Including the Australian made mattress set,LFNWMS,2026-06-01,1,726.36,0,0,726.36,72.64,799,1
-2026-06-21,COCOON Bassinet/Co-sleeper Fitted Sheets,CSPFS,2026-06-01,1,27.25,0,0,27.25,2.73,29.98,1
-2026-06-21,COCOON BREEZE BEDSIDE BASSINET,CSTB,2026-06-01,1,345.45,0,0,345.45,34.54,379.99,1
 2026-06-21,COCOON Bassinet/Co-Sleeper Fitted Sheet – Slumber Party,CSPFS,2026-06-01,1,27.25,-5.44,0,21.81,2.18,23.99,1
 2026-06-21,COCOON Nest / LOLLI Furniture Sprout mattress set,CNSMS,2026-06-01,1,262.73,0,0,262.73,26.27,289,1
+2026-06-21,COCOON BREEZE BEDSIDE BASSINET,CSTB,2026-06-01,1,345.45,0,0,345.45,34.54,379.99,1
+2026-06-21,Australian made Lolli Sprout / COCOON Nest Mattress Protector Set,CNMP,2026-06-01,3,190.84,-38.14,0,152.7,15.27,167.97,2
+2026-06-21,COCOON Bassinet/Co-sleeper Fitted Sheets,CSPFS,2026-06-01,1,27.25,0,0,27.25,2.73,29.98,1
+2026-06-21,Lolli Furniture Sprout 4 in 1 Natural beech wood Including the Australian made mattress set,LFNWMS,2026-06-01,1,726.36,0,0,726.36,72.64,799,1
+2026-06-21,COCOON BONDI Electric Recliner Glider Chair in Light Grey Boucle,CBERLG,2026-06-01,1,908.18,0,0,908.18,90.82,999,1
+2026-06-21,COCOON RIO Electric Recliner Glider Nursery Chair in Vanilla,CRERV,2026-06-01,1,908.18,0,0,908.18,90.82,999,1
 2026-06-22,ALLURE CHANGE AREA DOVE GREY NATURAL Including premium change mat,CACHDG,2026-06-01,1,764.2,0,0,764.2,76.42,840.62,1
-2026-06-22,,,2026-06-01,0,0,0,0,0,13.39,147.32,0
-2026-06-22,COCOON Comfy change mat - Latte,CCCML,2026-06-01,2,297.29,0,0,297.29,29.73,327.02,2
 2026-06-22,Australian made Lolli Sprout / COCOON Nest Mattress Protector Set,CNMP,2026-06-01,1,63.61,-12.71,0,50.9,5.09,55.99,1
 2026-06-22,Cocoon Furniture Hestia Baby Monitor,CHBM,2026-06-01,1,349,-349,0,0,0,0,1
+2026-06-22,COCOON Comfy change mat - Latte,CCCML,2026-06-01,2,297.29,0,0,297.29,29.73,327.02,2
+2026-06-22,COCOON Allure Dove Grey/Natural wash including an Australian made inner spring mattress,CADG,2026-06-01,1,636.69,0,0,636.69,63.67,700.36,1
+2026-06-22,,,2026-06-01,0,0,0,0,0,13.39,147.32,0
 2026-06-22,COCOON LUSH Including an Australian made inner spring mattress & Toddler bed rail,CLM,2026-06-01,1,817.27,0,0,817.27,81.73,899,1
 2026-06-22,Australian made LOLLI SPROUT / COCOON NEST Sheet set,CNSS,2026-06-01,1,54.5,-10.9,0,43.6,4.36,47.96,1
-2026-06-22,COCOON Allure Dove Grey/Natural wash including an Australian made inner spring mattress,CADG,2026-06-01,1,636.69,0,0,636.69,63.67,700.36,1
-2026-06-23,COCOON Comfy change mat - Latte,CCCML,2026-06-01,1,144.42,0,0,144.42,14.44,158.86,1
-2026-06-23,COCOON Vibe Sandstone including an Australian made Inner Spring mattress & Toddler bed rail,CVSSMT,2026-06-01,1,768.25,0,0,768.25,76.82,845.07,1
-2026-06-23,COCOON Bassinet/Co-Sleeper Fitted Sheet – Sweet Dreams,CSDFS,2026-06-01,1,27.25,0,0,27.25,2.73,29.98,1
-2026-06-23,COCOON Bassinet/Co-Sleeper Fitted Sheet – Slumber Party,CSPFS,2026-06-01,1,27.25,-5.44,0,21.81,2.18,23.99,1
-2026-06-23,COCOON Nest / LOLLI Furniture Sprout mattress set,CNSMS,2026-06-01,1,262.73,0,0,262.73,26.27,289,1
-2026-06-23,COCOON Bassinet/Co-Sleeper Fitted Sheet – Harper HedgeHog,CHHFS,2026-06-01,2,54.5,-5.44,0,49.06,4.91,53.97,2
 2026-06-23,COCOON Australian made Innerspring Organic cotton Mattress,CEMBC,2026-06-01,2,452.73,0,0,452.73,45.27,498,2
-2026-06-23,,,2026-06-01,0,0,0,0,0,14.39,158.31,0
+2026-06-23,COCOON Bassinet/Co-Sleeper Fitted Sheet – Sweet Dreams,CSDFS,2026-06-01,1,27.25,0,0,27.25,2.73,29.98,1
+2026-06-23,COCOON Bassinet/Co-Sleeper Fitted Sheet – Harper HedgeHog,CHHFS,2026-06-01,2,54.5,-5.44,0,49.06,4.91,53.97,2
 2026-06-23,Cocoon Furniture Hestia Baby Monitor,CHBM,2026-06-01,1,349,-349,0,0,0,0,1
+2026-06-23,COCOON Nest / LOLLI Furniture Sprout mattress set,CNSMS,2026-06-01,1,262.73,0,0,262.73,26.27,289,1
+2026-06-23,COCOON Vibe Sandstone including an Australian made Inner Spring mattress & Toddler bed rail,CVSSMT,2026-06-01,1,768.25,0,0,768.25,76.82,845.07,1
 2026-06-23,VIBE DRESSER Sandstone,VBS,2026-06-01,1,768.25,0,0,768.25,76.82,845.07,1
+2026-06-23,,,2026-06-01,0,0,0,0,0,14.39,158.31,0
+2026-06-23,COCOON Bassinet/Co-Sleeper Fitted Sheet – Slumber Party,CSPFS,2026-06-01,1,27.25,-5.44,0,21.81,2.18,23.99,1
+2026-06-23,COCOON Comfy change mat - Latte,CCCML,2026-06-01,1,144.42,0,0,144.42,14.44,158.86,1
+2026-06-24,Cocoon Furniture Hestia Baby Monitor,CHBM,2026-06-01,1,349,-349,0,0,0,0,1
+2026-06-24,COCOON Comfy change mat - Latte,CCCML,2026-06-01,1,154.47,0,0,154.47,15.45,169.92,1
+2026-06-24,,,2026-06-01,0,0,0,0,0,44.53,489.84,0
+2026-06-24,COCOON EVOKE/EVOLVE Starter Pack,CESS,2026-06-01,1,63.96,0,0,63.96,6.4,70.36,1
+2026-06-24,COCOON LUSH Including an Australian made inner spring mattress & Toddler bed rail,CLM,2026-06-01,1,817.27,0,0,817.27,81.73,899,1
 2026-06-24,COCOON RIO Electric Recliner Glider Nursery Chair in Sandstone,CRERS,2026-06-01,1,913.18,0,0,913.18,91.32,1004.5,1
 2026-06-24,COCOON EVOKE Including the Australian made mattress set,CEMS,2026-06-01,1,867.47,0,0,867.47,86.75,954.22,1
 2026-06-24,ALLURE CHANGE AREA NATURAL WASH/WHITE Including premium change mat,CACHNW,2026-06-01,1,817.27,0,0,817.27,81.73,899,1
-2026-06-24,COCOON Comfy change mat - Latte,CCCML,2026-06-01,1,154.47,0,0,154.47,15.45,169.92,1
-2026-06-24,COCOON EVOKE/EVOLVE Starter Pack,CESS,2026-06-01,1,63.96,0,0,63.96,6.4,70.36,1
-2026-06-24,,,2026-06-01,0,0,0,0,0,44.53,489.84,0
-2026-06-24,COCOON LUSH Including an Australian made inner spring mattress & Toddler bed rail,CLM,2026-06-01,1,817.27,0,0,817.27,81.73,899,1
-2026-06-24,Cocoon Furniture Hestia Baby Monitor,CHBM,2026-06-01,1,349,-349,0,0,0,0,1
-2026-06-25,Australian made Lolli Sprout / COCOON Nest Mattress Protector Set,CNMP,2026-06-01,2,127.24,0,0,127.24,12.72,139.96,1
-2026-06-25,COCOON Bassinet/Co-sleeper Fitted Sheets,CSDFS,2026-06-01,1,27.25,0,0,27.25,2.73,29.98,1
 2026-06-25,COCOON Nest / LOLLI Furniture Sprout mattress set,CNSMS,2026-06-01,1,262.73,0,0,262.73,26.27,289,1
-2026-06-25,COCOON Cot Fitted Sheets,CCSHVYSLPR,2026-06-01,1,40.89,0,0,40.89,4.09,44.98,1
-2026-06-25,,,2026-06-01,0,0,0,0,0,6.88,75.69,0
 2026-06-25,COCOON Bassinet/Co-sleeper Fitted Sheets,CHHFS,2026-06-01,1,27.25,0,0,27.25,2.73,29.98,1
-2026-06-25,COCOON Bassinet/Co-Sleeper Fitted Sheet – Slumber Party,CSPFS,2026-06-01,1,27.25,-5.44,0,21.81,2.18,23.99,1
+2026-06-25,Australian made Lolli Sprout / COCOON Nest Mattress Protector Set,CNMP,2026-06-01,2,127.24,0,0,127.24,12.72,139.96,1
+2026-06-25,COCOON Cot Fitted Sheets,CCSHVYSLPR,2026-06-01,1,40.89,0,0,40.89,4.09,44.98,1
 2026-06-25,COCOON Bassinet/Co-Sleeper Fitted Sheet – Harper HedgeHog,CHHFS,2026-06-01,1,27.25,-5.44,0,21.81,2.18,23.99,1
+2026-06-25,COCOON Bassinet/Co-Sleeper Fitted Sheet – Slumber Party,CSPFS,2026-06-01,1,27.25,-5.44,0,21.81,2.18,23.99,1
+2026-06-25,COCOON Bassinet/Co-sleeper Fitted Sheets,CSDFS,2026-06-01,1,27.25,0,0,27.25,2.73,29.98,1
 2026-06-25,COCOON Bassinet/Co-Sleeper Fitted Sheet – Sweet Dreams,CSDFS,2026-06-01,1,27.25,-5.44,0,21.81,2.18,23.99,1
+2026-06-25,,,2026-06-01,0,0,0,0,0,6.88,75.69,0
 2026-06-26,COCOON Comfy change mat - Latte,CCCML,2026-06-01,1,144.42,0,0,144.42,14.44,158.86,1
-2026-06-26,COCOON Australian made Oval Bamboo Mattress,CEMBC,2026-06-01,1,262.73,0,0,262.73,26.27,289,1
-2026-06-26,Lolli Furniture Sprout 4 in 1 Natural beech wood Including the Australian made mattress set,LFNWMS,2026-06-01,1,726.36,0,0,726.36,72.64,799,1
-2026-06-26,COCOON Nest / LOLLI Furniture Sprout mattress set,CNSMS,2026-06-01,1,262.73,0,0,262.73,26.27,289,1
-2026-06-26,VIBE DRESSER Sandstone,VBS,2026-06-01,1,768.25,0,0,768.25,76.82,845.07,1
 2026-06-26,,,2026-06-01,0,0,0,0,0,20.04,220.48,0
-2026-06-26,COCOON Vibe Sandstone including an Australian made Inner Spring mattress & Toddler bed rail,CVSSMT,2026-06-01,2,1585.52,0,0,1585.52,158.55,1744.07,2
+2026-06-26,COCOON Australian made Oval Bamboo Mattress,CEMBC,2026-06-01,1,262.73,0,0,262.73,26.27,289,1
 2026-06-26,Cocoon Furniture Hestia Baby Monitor,CHBM,2026-06-01,1,349,-349,0,0,0,0,1
+2026-06-26,VIBE DRESSER Sandstone,VBS,2026-06-01,1,768.25,0,0,768.25,76.82,845.07,1
+2026-06-26,Lolli Furniture Sprout 4 in 1 Natural beech wood Including the Australian made mattress set,LFNWMS,2026-06-01,1,726.36,0,0,726.36,72.64,799,1
+2026-06-26,COCOON Vibe Sandstone including an Australian made Inner Spring mattress & Toddler bed rail,CVSSMT,2026-06-01,2,1585.52,0,0,1585.52,158.55,1744.07,2
+2026-06-26,COCOON Nest / LOLLI Furniture Sprout mattress set,CNSMS,2026-06-01,1,262.73,0,0,262.73,26.27,289,1
+2026-06-27,COCOON Bassinet/Co-sleeper Fitted Sheets,CSPFS,2026-06-01,1,27.25,0,0,27.25,2.73,29.98,1
+2026-06-27,COCOON Piccolo Toddler Bed Rail,CPTT,2026-06-01,1,72.71,0,0,72.71,7.27,79.98,1
+2026-06-27,COCOON Bassinet/Co-sleeper Fitted Sheets,CSDFS,2026-06-01,1,27.25,0,0,27.25,2.73,29.98,1
+2026-06-27,COCOON Bassinet/Co-sleeper Fitted Sheets,CHHFS,2026-06-01,1,27.25,0,0,27.25,2.73,29.98,1
+2026-06-27,COCOON NEST NATURAL Including the Australian made mattress set,CNNMS,2026-06-01,1,908.18,0,0,908.18,90.82,999,1
+2026-06-27,Australian made Lolli Sprout / COCOON Nest Mattress Protector Set,CNMP,2026-06-01,4,254.46,-38.14,0,216.32,21.63,237.95,3
+2026-06-27,COCOON Bassinet/Co-Sleeper Fitted Sheet – Slumber Party,CSPFS,2026-06-01,2,54.5,-10.88,0,43.62,4.36,47.98,2
+2026-06-27,,,2026-06-01,0,0,0,0,0,24.39,268.47,0
+2026-06-27,COCOON Nest / LOLLI Furniture Sprout mattress set,CNSMS,2026-06-01,1,262.73,0,0,262.73,26.27,289,1
+2026-06-27,COCOON BREEZE BEDSIDE BASSINET,CSTB,2026-06-01,1,345.45,0,0,345.45,34.54,379.99,1
+2026-06-27,COCOON Bassinet/Co-Sleeper Fitted Sheet – Sweet Dreams,CSDFS,2026-06-01,2,54.5,-10.88,0,43.62,4.36,47.98,2
+2026-06-27,Australian made LOLLI SPROUT / COCOON NEST Sheet set,CNSS,2026-06-01,3,163.5,-21.8,0,141.7,14.17,155.87,2
+2026-06-27,COCOON Bassinet/Co-Sleeper Fitted Sheet – Harper HedgeHog,CHHFS,2026-06-01,1,27.25,-5.44,0,21.81,2.18,23.99,1
